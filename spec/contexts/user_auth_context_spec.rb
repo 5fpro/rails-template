@@ -3,7 +3,7 @@ require 'rails_helper'
 describe UserAuthContext, type: :context do
   let(:user) { FactoryGirl.create :unconfirmed_user }
   let(:omniauth_data) { omniauth_mock(:facebook) }
-  let(:email) { omniauth_data['info']['email'] }
+  let!(:email) { omniauth_data['info']['email'] }
 
   subject { described_class.new(omniauth_data, user).perform }
 
@@ -92,5 +92,9 @@ describe UserAuthContext, type: :context do
         described_class.new(omniauth_mock(:google_oauth2), user).perform
       }.to change { user.authorizations.count }.by(1)
     end
+  end
+
+  context 'no email' do
+    it { expect { described_class.new(omniauth_data.merge(info: nil)).perform }.not_to change { User.count } }
   end
 end

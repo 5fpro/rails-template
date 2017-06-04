@@ -1,9 +1,9 @@
 # config valid only for current version of Capistrano
-lock '3.7.2'
+lock '3.8.0'
 
 # Config@initial
-set :application, 'myapp'
-set :repo_url, 'git@github.com:5fpro/rails4-template.git'
+set :application, ENV.fetch('APP_NAME') { '5FPRO' }
+set :repo_url, 'git@github.com:5fpro/rails-template.git'
 
 # Default branch is :master
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
@@ -13,6 +13,7 @@ ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 set :rbenv_type, :user
 set :rbenv_ruby, File.read('.ruby-version').strip
+set :rbenv_map_bins, %w{rake gem bundle ruby rails unicorn sidekiq sidekiqctl}
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -24,7 +25,7 @@ set :rbenv_ruby, File.read('.ruby-version').strip
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/application.yml')
+set :linked_files, fetch(:linked_files, []).push('config/application.yml', '.env')
 
 # Default value for linked_dirs is []
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
@@ -35,24 +36,10 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-namespace :deploy do
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
-
-end
-
-
 after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   task :restart do
-    invoke 'unicorn:legacy_restart'
+    invoke 'unicorn:restart'
     # invoke 'unicorn:restart'
 
     # passenger

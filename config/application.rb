@@ -16,6 +16,8 @@ require 'sprockets/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+
 module Myapp
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -31,5 +33,16 @@ module Myapp
     config.generators.helper_specs = false
 
     config.active_job.queue_adapter = :sidekiq
+
+    # serve error pages from the Rails app itself (routes.rb)
+    config.exceptions_app = self.routes
+
+    # rack-cors
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :put, :delete, :options]
+      end
+    end
   end
 end

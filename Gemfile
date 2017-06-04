@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
-gem 'rails', '~> 5.0.1'
+
+gem 'rails', '~> 5.0.2'
+
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 # DB
 gem 'activerecord-postgis-adapter'
@@ -39,7 +42,7 @@ gem 'sinatra', '~> 2.0.0.beta2'
 
 # file upload
 gem 'carrierwave'
-gem 'carrierwave_backgrounder'
+gem 'carrierwave_backgrounder', git: 'git@github.com:lardawge/carrierwave_backgrounder.git'
 gem 'fog'
 gem 'mini_magick'
 
@@ -70,6 +73,8 @@ group :development do
 
   gem 'spring'
   gem 'spring-commands-rspec'
+
+  gem 'rails_real_favicon'
 end
 
 group :development, :test do
@@ -129,3 +134,6 @@ gem 'jquery-ui-rails'
 gem 'crummy'
 gem 'meta-tags', require: 'meta_tags'
 gem 'sitemap_generator'
+
+# middleware
+gem 'rack-cors', require: 'rack/cors'

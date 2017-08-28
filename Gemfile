@@ -89,8 +89,8 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'timecop'
-  gem 'webmock'
   gem 'turnip'
+  gem 'webmock'
 end
 
 group :doc do

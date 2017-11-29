@@ -4,6 +4,7 @@ class Admin::BaseController < ApplicationController
 
   before_action :authenticate_user!
   before_action :authenticate_admin_user!
+  before_action :check_mfa
   before_action :set_meta
 
   add_breadcrumb 'Admin', :admin_root_path
@@ -26,5 +27,12 @@ class Admin::BaseController < ApplicationController
 
   def authenticate_admin_user!
     redirect_to root_path unless current_user.admin?
+  end
+
+  def check_mfa
+    return true unless current_user.mfa_secret?
+    if !(user_mfa_session = UserMfaSession.find) && (user_mfa_session ? user_mfa_session.record == current_user : !user_mfa_session)
+      redirect_to new_admin_user_mfa_session_path
+    end
   end
 end

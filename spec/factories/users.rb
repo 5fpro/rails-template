@@ -22,6 +22,8 @@
 #  updated_at             :datetime
 #  admin                  :boolean          default(FALSE)
 #  avatar                 :string
+#  mfa_secret             :string
+#  mfa_token              :string
 #
 
 FactoryBot.define do
@@ -33,6 +35,10 @@ FactoryBot.define do
 
     trait :admin do
       admin true
+    end
+
+    trait :enable_mfa do
+      mfa_secret { ROTP::Base32.random_base32 }
     end
 
     trait :unconfirmed do

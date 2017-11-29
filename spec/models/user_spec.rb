@@ -22,6 +22,8 @@
 #  updated_at             :datetime
 #  admin                  :boolean          default(FALSE)
 #  avatar                 :string
+#  mfa_secret             :string
+#  mfa_token              :string
 #
 
 require 'rails_helper'

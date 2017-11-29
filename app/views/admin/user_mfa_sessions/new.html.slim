@@ -1,0 +1,4 @@
+= admin_form_for current_user, url: admin_user_mfa_sessions_path, method: :post, wrapper: :admin_landing do |f|
+  = f.input :mfa_code, placeholder: '驗證碼', required: true
+  = f.full_size_submit '驗證'
+

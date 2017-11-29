@@ -136,3 +136,5 @@ gem 'sitemap_generator'
 
 # middleware
 gem 'rack-cors', require: 'rack/cors'
+
+gem 'google-authenticator-rails'

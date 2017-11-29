@@ -31,6 +31,8 @@ Rails.application.routes.draw do
         post :restore
       end
     end
+
+    resources :user_mfa_sessions
   end
 
   namespace :api do

@@ -37,6 +37,10 @@ FactoryBot.define do
       admin true
     end
 
+    trait :enable_mfa do
+      mfa_secret { ROTP::Base32.random_base32 }
+    end
+
     trait :unconfirmed do
       confirmed_at nil
     end

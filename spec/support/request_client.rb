@@ -10,6 +10,12 @@ module RequestClient
     @current_user = user if response.status == 302
   end
 
+  def pass_mfa
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@current_user)
+    expect(@current_user).to receive(:google_authentic?).and_return(true)
+    post '/admin/user_mfa_sessions', params: { user: { mfa_code: '1234' } }
+  end
+
   def current_user
     @current_user
   end

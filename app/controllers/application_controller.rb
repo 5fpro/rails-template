@@ -3,18 +3,15 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   include MetaTagHelper
+  include Redactor2Concern
 
   before_action :http_auth_for_staging
   before_action :set_paper_trail_whodunnit
 
-  def default_url_options
-    { protocol: Setting.default_protocol }
-  end
-
   private
 
   def http_auth_for_staging
-    return unless staging?
+    return unless Rails.env.staging?
     authenticate_or_request_with_http_basic do |username, password|
       username == ENV['STAGING_USERNAME'] && password == ENV['STAGING_PASSWORD']
     end

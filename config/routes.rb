@@ -1,7 +1,17 @@
 require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
-  devise_for :users
+
+  mount Redactor2Rails::Engine => '/redactor2_rails'
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    confirmations: 'users/confirmations',
+    passwords: 'users/passwords',
+    registrations: 'users/registrations',
+    unlocks: 'users/unlocks'
+  }
+
   get '/authorizations/:provider/callback', to: 'authorizations#callback'
   get '/authorizations/failure' => 'authorizations#failue', as: :auth_failure
   Setting.omniauth.providers.keys.each do |provider|
@@ -13,6 +23,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: 'base#index', as: :root
+    get '/examples', to: 'base#examples', as: :examples
+    get '/error', to: 'base#error', as: :error
     resources :users
     resources :categories do
       member do
@@ -25,7 +37,7 @@ Rails.application.routes.draw do
   namespace :api do
     root to: 'base#index', as: :root
     match '/error', to: 'base#error', via: :all
-    match '*not_found', to: 'base#respond_404', via: :all
+    match '(*not_found)', to: 'base#respond_404', via: :all
   end
 
   # error pages
@@ -37,5 +49,5 @@ Rails.application.routes.draw do
   end
 
   # must put this line to bottom of routes.rb
-  match '*not_found', to: 'errors#not_found', via: :all
+  match '(*not_found)', to: 'errors#not_found', via: :all
 end

@@ -14,6 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+!/tmp/.keep
 
 /config/application.yml
 /config/application.staging.yml
@@ -27,3 +28,5 @@
 /.env
 /.env.staging
 /.env.production
+/node_modules
+/yarn-error.log

@@ -13,6 +13,12 @@ AllCops:
     - Guardfile
     - .gems/**/*
 
+Metrics/BlockLength:
+  Max: 250
+
+Metrics/ClassLength:
+  Max: 150
+
 Rails:
   Enabled: true
 
@@ -21,7 +27,7 @@ Metrics/ModuleLength:
   Max: 100
   Enabled: false
 
-Style/AccessorMethodName:
+Naming/AccessorMethodName:
   Enabled: false
 
 Style/AndOr:
@@ -30,13 +36,13 @@ Style/AndOr:
 Style/Documentation:
   Enabled: false
 
-Style/EmptyLinesAroundBlockBody:
+Layout/EmptyLinesAroundBlockBody:
   Enabled: false
 
-Style/EmptyLinesAroundClassBody:
+Layout/EmptyLinesAroundClassBody:
   Enabled: false
 
-Style/EmptyLinesAroundModuleBody:
+Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 
 Style/GuardClause:
@@ -82,7 +88,7 @@ Style/BlockDelimiters:
 Style/RegexpLiteral:
   AllowInnerSlashes: true
 
-Style/PredicateName:
+Naming/PredicateName:
   Enabled: false
 
 Metrics/MethodLength:
@@ -123,9 +129,6 @@ Style/StringLiteralsInInterpolation:
   EnforcedStyle: single_quotes
   Enabled: true
 
-Metrics/BlockLength:
-  Max: 150
-
 Rails/SkipsModelValidations:
   Enabled: false
 
@@ -138,3 +141,32 @@ Lint/AmbiguousBlockAssociation:
 
 Style/SymbolArray:
   EnforcedStyle: brackets
+
+Lint/RescueWithoutErrorClass:
+  Enabled: false
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Max: 8
+
+Security/Eval:
+  Exclude:
+    - 'spec/steps/api/data_format_matcher_steps.rb'
+    - 'spec/steps/response_steps.rb'
+
+Lint/UnusedBlockArgument:
+  Exclude:
+    - 'spec/steps/response_steps.rb'
+
+Lint/UselessAssignment:
+  Exclude:
+    - 'spec/steps/response_steps.rb'
+
+Lint/Debugger:
+  Exclude:
+    - 'spec/steps/util_steps.rb'
+
+Rails/UnknownEnv:
+  Environments: development, test, production, staging

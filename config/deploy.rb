@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.8.1'
+lock '3.10.0'
 
 # Config@initial
 set :application, ENV.fetch('APP_NAME') { '5FPRO' }
@@ -24,8 +24,13 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails unicorn sidekiq sidekiqctl}
 # Default value for :pty is false
 # set :pty, true
 
+set :config_files, [
+  '.env',
+  'config/application.yml'
+]
+
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/application.yml', '.env')
+set :linked_files, fetch(:linked_files, []).push(*fetch(:config_files))
 
 # Default value for linked_dirs is []
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
@@ -37,6 +42,8 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # set :keep_releases, 5
 
 after 'deploy:publishing', 'deploy:restart'
+after 'deploy:published', 'bundler:clean'
+
 namespace :deploy do
   task :restart do
     invoke 'unicorn:restart'
@@ -48,18 +55,5 @@ namespace :deploy do
   end
 end
 
-# uncomment while first deploy
-# before "deploy:migrate", "deploy:db_create"
-# namespace :deploy do
-#   task :db_create do
-#     on primary fetch(:migration_role) do
-#       within release_path do
-#         with rails_env: fetch(:rails_env) do
-#           execute :rake, "db:create"
-#         end
-#       end
-#     end
-#   end
-# end
-
+# capistrano-rails => https://github.com/capistrano/rails/blob/master/lib/capistrano/tasks/assets.rake
 set :assets_roles, [:web, :worker, :assets_sync_server]

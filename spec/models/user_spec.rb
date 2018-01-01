@@ -18,8 +18,8 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
-#  created_at             :datetime
-#  updated_at             :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #  admin                  :boolean          default(FALSE)
 #  avatar                 :string
 #
@@ -29,8 +29,17 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:user) { create(:user) }
 
-  it 'FactoryGirl' do
+  it 'Factory' do
     expect(user).not_to be_new_record
-    expect(create(:user_with_avatar).avatar.url).to be_present
+    expect(create(:user, :with_avatar).avatar.url).to be_present
+  end
+
+  it 'devise async' do
+    expect {
+      create :user, :unconfirmed
+    }.to enqueue_job(ActionMailer::DeliveryJob)
+    expect {
+      user
+    }.not_to have_enqueued_job(ActionMailer::DeliveryJob)
   end
 end

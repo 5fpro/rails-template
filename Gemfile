@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.2'
+gem 'rails', '~> 5.1'
 
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 
@@ -31,19 +31,18 @@ gem 'uglifier', '>= 1.3.0'
 
 # JS plugin
 gem 'jquery-rails'
-gem 'select2-rails', '~> 3'
 gem 'turbolinks', '~> 5'
 
 # background jobs
 gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
-gem 'sidetiq'
-gem 'sinatra', '~> 2.0.0.beta2'
+gem 'sidekiq-scheduler'
+gem 'sinatra', '~> 2.0'
 
 # file upload
 gem 'carrierwave'
 gem 'carrierwave_backgrounder', git: 'git@github.com:lardawge/carrierwave_backgrounder.git'
-gem 'fog'
+gem 'fog-aws'
 gem 'mini_magick'
 
 # soft delete
@@ -68,7 +67,7 @@ group :development do
   gem 'annotate'
   gem 'http_logger'
   gem 'rubocop'
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 3.0'
   gem 'xray-rails'
 
   gem 'spring'
@@ -79,7 +78,7 @@ end
 
 group :development, :test do
   gem 'byebug'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'listen'
   gem 'rspec'
   gem 'rspec-rails'
@@ -89,6 +88,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'timecop'
+  gem 'turnip'
   gem 'webmock'
 end
 
@@ -97,14 +97,15 @@ group :doc do
 end
 
 gem 'kaminari'
+gem 'lograge', require: true
 gem 'rollbar'
 
 # devise
 gem 'devise'
+gem 'devise-async'
 
 # aws
-gem 'aws-sdk'
-gem 'aws-sdk-v1'
+gem 'aws-sdk-rails'
 
 # unicorn
 gem 'unicorn'
@@ -127,13 +128,14 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-oauth2'
 
 # front-end
-gem 'bootstrap-sass'
 gem 'jquery-ui-rails'
 
 # SEO
-gem 'crummy'
+gem 'breadcrumbs_on_rails'
 gem 'meta-tags', require: 'meta_tags'
 gem 'sitemap_generator'
 
 # middleware
 gem 'rack-cors', require: 'rack/cors'
+
+gem 'redactor2_rails'

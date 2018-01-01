@@ -1,28 +1,29 @@
 class Admin::UsersController < Admin::BaseController
   before_action :user
-  before_action(except: [:index]) { add_crumb('Users', admin_users_path) }
+  add_breadcrumb('Users', :admin_users_path)
+  before_action do
+    add_breadcrumb(@user.name, admin_user_path(@user)) if @user.try(:id)
+  end
 
   def index
-    @admin_page_title = 'Users'
-    add_crumb @admin_page_title, '#'
+    set_meta(title: 'Users')
     @q = Admin::User.ransack(params[:q])
     @users = @q.result.order('id DESC').page(params[:page]).per(30)
     respond_with @users
   end
 
   def show
-    @admin_page_title = "##{@user.id}"
-    add_crumb @admin_page_title, '#'
+    set_meta(title: "User ##{@user.id}")
   end
 
   def new
-    @admin_page_title = 'New User'
-    add_crumb @admin_page_title, '#'
+    set_meta(title: 'New User')
+    add_breadcrumb 'New'
   end
 
   def edit
-    @admin_page_title = 'Edit User'
-    add_crumb @admin_page_title, '#'
+    set_meta(title: 'Edit User')
+    add_breadcrumb 'Edit'
   end
 
   def create

@@ -56,22 +56,19 @@ end
 
 group :development do
   # capistrano
+  gem 'capistrano'
+  gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano-sidekiq'
-  # unicorn
   gem 'capistrano3-unicorn'
   # slack
   gem 'slackistrano', require: false
 
   gem 'annotate'
   gem 'http_logger'
+  gem 'listen'
   gem 'rubocop'
-  gem 'web-console', '~> 3.0'
-  gem 'xray-rails'
-
-  gem 'spring'
-  gem 'spring-commands-rspec'
 
   gem 'rails_real_favicon'
 end
@@ -79,7 +76,6 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'factory_bot_rails'
-  gem 'listen'
   gem 'rspec'
   gem 'rspec-rails'
   # gem 'rename'

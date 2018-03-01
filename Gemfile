@@ -34,14 +34,13 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 
 # background jobs
-gem 'sidekiq'
+gem 'sidekiq', '~> 5.0.5'
 gem 'sidekiq-limit_fetch'
 gem 'sidekiq-scheduler'
 gem 'sinatra', '~> 2.0'
 
 # file upload
 gem 'carrierwave'
-gem 'carrierwave_backgrounder', git: 'git@github.com:lardawge/carrierwave_backgrounder.git'
 gem 'fog-aws'
 gem 'mini_magick'
 
@@ -86,10 +85,6 @@ group :test do
   gem 'timecop'
   gem 'turnip'
   gem 'webmock'
-end
-
-group :doc do
-  gem 'sdoc', '~> 0.4.0'
 end
 
 gem 'kaminari'

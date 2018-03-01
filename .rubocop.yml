@@ -142,7 +142,7 @@ Lint/AmbiguousBlockAssociation:
 Style/SymbolArray:
   EnforcedStyle: brackets
 
-Lint/RescueWithoutErrorClass:
+Style/RescueStandardError:
   Enabled: false
 
 Lint/AmbiguousRegexpLiteral:
@@ -155,14 +155,17 @@ Security/Eval:
   Exclude:
     - 'spec/steps/api/data_format_matcher_steps.rb'
     - 'spec/steps/response_steps.rb'
+    - 'spec/steps/model_steps.rb'
 
 Lint/UnusedBlockArgument:
   Exclude:
     - 'spec/steps/response_steps.rb'
+    - 'spec/steps/model_steps.rb'
 
 Lint/UselessAssignment:
   Exclude:
     - 'spec/steps/response_steps.rb'
+    - 'spec/steps/model_steps.rb'
 
 Lint/Debugger:
   Exclude:
@@ -170,3 +173,8 @@ Lint/Debugger:
 
 Rails/UnknownEnv:
   Environments: development, test, production, staging
+
+Style/MixinUsage:
+  Exclude:
+    - 'spec/turnip_helper.rb'
+    - 'spec/rails_helper.rb'

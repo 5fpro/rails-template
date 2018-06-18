@@ -1,8 +1,7 @@
-class Admin::CategoriesController < Admin::BaseController
+class Admin::CategoriesController < Tyr::Admin::BaseController
   before_action :category
 
-  add_breadcrumb(breadcrumb_text, :admin_categories_path)
-
+  before_action :set_default_breadcrumb
   before_action only: [:show, :edit, :revisions] do
     add_breadcrumb(@category.name, admin_category_path(@category))
   end
@@ -46,7 +45,7 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def update
-    if category.update_attributes(category_params)
+    if category.update(category_params)
       redirect_to params[:redirect_to] || admin_category_path(category), flash: { success: t('.success') }
     else
       edit

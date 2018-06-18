@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint(8)        not null, primary key
 #  name                   :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
@@ -23,13 +23,7 @@
 #  avatar                 :string
 #
 
-class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :async
+class User < Tyr::ApplicationRecord
   omniauthable
-
   mount_uploader :avatar, AvatarUploader
-
 end

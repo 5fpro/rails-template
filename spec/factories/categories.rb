@@ -2,7 +2,7 @@
 #
 # Table name: categories
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -15,7 +15,7 @@ FactoryBot.define do
     sequence(:name) { |n| "category #{n}" }
 
     trait :admin_creation do
-      tag_list { ['tag1', 'tag2', 'tag3'] }
+      tag_list { 'tag1,tag2,tag3' }
     end
   end
 

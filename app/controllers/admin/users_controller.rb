@@ -1,8 +1,6 @@
-class Admin::UsersController < Admin::BaseController
+class Admin::UsersController < Tyr::Admin::BaseController
   before_action :user
-
-  add_breadcrumb(breadcrumb_text, :admin_users_path)
-
+  before_action :set_default_breadcrumb
   before_action only: [:show, :edit] do
     add_breadcrumb(@user.name, admin_user_path(@user))
   end
@@ -40,7 +38,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def update
-    if user.update_attributes(user_params)
+    if user.update(user_params)
       redirect_to params[:redirect_to] || admin_user_path(user), flash: { success: t('.success') }
     else
       edit

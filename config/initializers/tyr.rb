@@ -1,3 +1,5 @@
-Tyr.config.disable_redactor = false
-Tyr.config.disable_paper_trail = false
-Tyr.config.disable_staging_authorize = false
+Tyr.config.api_constraints = lambda do |req|
+  req.subdomain.to_s.index('api')
+end
+
+Tyr.init!

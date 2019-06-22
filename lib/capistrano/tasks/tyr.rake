@@ -1,7 +1,6 @@
 namespace :load do
   task :defaults do
     set :rollbar_role, -> { :db }
-    set :sidekiq_systemd_hooks, -> { true } # TODO: use systemd to monitor sidekiq process
     set :sidekiq_role, -> { :worker }
     set :asset_sync_enable, -> { true }
     set :asset_sync_roles,  -> { :worker }

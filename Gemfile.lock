@@ -369,7 +369,7 @@ GEM
       activerecord (>= 4.0, < 6.1)
     parser (2.7.0.4)
       ast (~> 2.4.0)
-    pg (1.2.2)
+    pg (1.2.3)
     phonelib (0.6.42)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)

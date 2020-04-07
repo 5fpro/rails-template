@@ -4,7 +4,7 @@
 #
 # Table name: administrators
 #
-#  id                     :bigint(8)        not null, primary key
+#  id                     :bigint           not null, primary key
 #  name                   :string
 #  root                   :boolean          default(FALSE)
 #  email                  :string           default(""), not null
@@ -23,6 +23,12 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#
+# Indexes
+#
+#  index_administrators_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_administrators_on_email                 (email) UNIQUE
+#  index_administrators_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class Administrator < Tyr::Administrator
 end

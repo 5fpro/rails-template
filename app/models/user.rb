@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :bigint(8)        not null, primary key
+#  id                     :bigint           not null, primary key
 #  name                   :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
@@ -22,8 +22,18 @@
 #  updated_at             :datetime         not null
 #  avatar                 :string
 #
-
+# Indexes
+#
+#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
 class User < Tyr::ApplicationRecord
   omniauthable
   mount_uploader :avatar, AvatarUploader
+
+  # devise :database_authenticatable, :trackable, :validatable, :registerable, :confirmable, :recoverable
+  def label
+    name
+  end
 end

@@ -2,7 +2,7 @@
 #
 # Table name: attachments
 #
-#  id                :bigint(8)        not null, primary key
+#  id                :bigint           not null, primary key
 #  name              :string
 #  description       :text
 #  creator_type      :string
@@ -22,7 +22,15 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
-
+# Indexes
+#
+#  index_attachments_on_creator_type_and_creator_id               (creator_type,creator_id)
+#  index_attachments_on_item_type_and_item_id                     (item_type,item_id)
+#  index_attachments_on_item_type_and_item_id_and_scope           (item_type,item_id,scope)
+#  index_attachments_on_item_type_and_item_id_and_scope_and_sort  (item_type,item_id,scope,sort)
+#  index_attachments_on_item_type_and_item_id_and_sort            (item_type,item_id,sort)
+#  trgm_attachments_description_idx                               (description) USING gist
+#
 class ImageAttachment < Attachment
   uploader ImageUploader
 end

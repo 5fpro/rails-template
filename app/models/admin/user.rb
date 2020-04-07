@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :bigint(8)        not null, primary key
+#  id                     :bigint           not null, primary key
 #  name                   :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
@@ -22,7 +22,12 @@
 #  updated_at             :datetime         not null
 #  avatar                 :string
 #
-
+# Indexes
+#
+#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
 class Admin::User < ::User
 
   class << self
@@ -32,15 +37,6 @@ class Admin::User < ::User
 
     def has_avatar(_boolean = true)
       where.not(avatar: nil)
-    end
-
-    def to_csv(opts = {})
-      CSV.generate(opts) do |csv|
-        csv << ['ID', 'Name', 'Email']
-        offset(0).limit(relation.count).all.find_each do |o| # reset pagination
-          csv << [o.id, o.name, o.email]
-        end
-      end
     end
   end
 

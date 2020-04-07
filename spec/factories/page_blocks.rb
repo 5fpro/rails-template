@@ -2,7 +2,7 @@
 #
 # Table name: page_blocks
 #
-#  id              :bigint(8)        not null, primary key
+#  id              :bigint           not null, primary key
 #  name            :string
 #  body            :text
 #  enabled         :boolean          default(FALSE)
@@ -11,7 +11,11 @@
 #  template_engine :string
 #  variables       :text
 #
-
+# Indexes
+#
+#  index_page_blocks_on_enabled  (enabled)
+#  index_page_blocks_on_name     (name)
+#
 FactoryBot.define do
   factory :page_block do
     name { :test }

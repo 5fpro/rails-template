@@ -91,8 +91,8 @@ default:
     enable_mfa: false
     display_account_menu: true
     auth_redirect_to: /
+    route_enable_404: true
     route:
-      enable_404: true
       path: '/admin'
     form_input_view: tyr/admin/base/templates/form_input
     administrator_class_name: 'Administrator'
@@ -279,6 +279,8 @@ default:
     admin:
       enable: true
       form_view_path: admin/settings/form
+  form_select:
+    enable: false
   redactor:
     enable: true
     default_js_options:

@@ -29,7 +29,7 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < Tyr::ApplicationRecord
-  omniauthable
+  omniauthable if Tyr.config.omniauth.enable
   mount_uploader :avatar, AvatarUploader
 
   # devise :database_authenticatable, :trackable, :validatable, :registerable, :confirmable, :recoverable

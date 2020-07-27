@@ -27,6 +27,7 @@ end
 group :development do
   # capistrano
   gem 'capistrano'
+  gem 'capistrano3-unicorn'
   gem 'capistrano-bundler'
   gem 'capistrano-git-with-submodules'
   gem 'capistrano-nvm', require: false
@@ -34,7 +35,6 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano-sidekiq'
   gem 'capistrano-yarn'
-  gem 'capistrano3-unicorn'
   # slack
   gem 'slackistrano', require: false
 

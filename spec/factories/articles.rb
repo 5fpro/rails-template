@@ -42,6 +42,7 @@ FactoryBot.define do
   factory :article do
     layout { 'default' }
     subject { 'haha' }
+
     summary { 'hahahaha' }
     body { 'hahahahahahhahaha' }
   end

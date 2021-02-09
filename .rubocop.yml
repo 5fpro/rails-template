@@ -1,4 +1,6 @@
-require: rubocop-rails
+require:
+  - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
   Exclude:
@@ -289,3 +291,48 @@ Rails/WhereExists:
 
 Style/BisectedAttrAccessor:
   Enabled: true
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/LeakyConstantDeclaration:
+  Enabled: false
+
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - spec/**/*
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/FilePath:
+  Exclude:
+    - spec/config_initializers/**/*
+
+Lint/MissingSuper:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+RSpec/DescribedClass:
+  Exclude:
+    - spec/controllers/concerns/**/*
+
+RSpec/EmptyExampleGroup:
+  Enabled: false

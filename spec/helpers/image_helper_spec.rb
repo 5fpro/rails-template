@@ -5,7 +5,7 @@ RSpec.describe ImageHelper, type: :helper do
     basename = 'statics/123'
     expected = "https://#{Setting.cdn_host}/#{basename}-100.jpg 100w, https://#{Setting.cdn_host}/#{basename}-300.jpg 300w"
     expect(cdn_image_srcset(basename, [100, 300], '.jpg')).to eq(expected)
-    expect(cdn_image_srcset('/' + basename, [100, 300], '.jpg')).to eq(expected)
+    expect(cdn_image_srcset("/#{basename}", [100, 300], '.jpg')).to eq(expected)
   end
 
   it '#cdn_image_tag' do

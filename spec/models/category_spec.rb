@@ -23,7 +23,7 @@ RSpec.describe Category, type: :model do
     expect {
       create(:category)
       create(:category)
-    }.to change { Category.count }.by(2)
+    }.to change(described_class, :count).by(2)
   end
 
   it 'acts_as_paranoid' do

@@ -39,11 +39,12 @@ group :development do
   gem 'slackistrano', require: false
 
   gem 'annotate'
-  gem 'brakeman'
+  gem 'brakeman', '~> 4'
   gem 'http_logger'
   gem 'listen'
   gem 'rubocop'
   gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 
   gem 'rails_real_favicon'
 end

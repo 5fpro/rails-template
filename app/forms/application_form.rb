@@ -1,0 +1,3 @@
+class ApplicationForm < BaseForm
+
+end

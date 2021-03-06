@@ -1,5 +1,5 @@
 module Admin
-  class UserExporter < BaseExporter
+  class UserExporter < ::ApplicationExporter
     define_export(
       :id,
       :name,

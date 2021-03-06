@@ -1,0 +1,3 @@
+class ApplicationExporter < BaseExporter
+
+end

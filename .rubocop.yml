@@ -110,6 +110,10 @@ Style/FrozenStringLiteralComment:
 Style/NumericPredicate:
   Enabled: false
 
+Rails/Output:
+  Exclude:
+    - app/contexts/fake_data_context.rb
+
 Rails/OutputSafety:
   Enabled: false
 

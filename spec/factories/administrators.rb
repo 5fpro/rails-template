@@ -32,7 +32,7 @@
 #
 FactoryBot.define do
   factory :administrator do
-    name { '5Fpro' }
+    name { '5Fpro administrator' }
     sequence(:email) { |n| "admin#{n}@5fpro.com" }
     password { '12341234' }
     root { false }

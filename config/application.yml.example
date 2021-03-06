@@ -32,6 +32,9 @@ defaults: &defaults
       google_oauth2:
         token: "<%= ENV['OAUTH_GOOGLE_TOKEN'] %>"
         secret: "<%= ENV['OAUTH_GOOGLE_SECRET'] %>"
+      line:
+        token: "<%= ENV['OAUTH_LINE_TOKEN'] %>"
+        secret: "<%= ENV['OAUTH_LINE_SECRET'] %>"
 
 development:
   <<: *defaults

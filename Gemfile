@@ -67,3 +67,5 @@ end
 gem 'unicorn'
 
 gem 'bootsnap', '>= 1.1.0', require: false
+
+gem 'omniauth-line', git: 'git@github.com:marsz/omniauth-line.git'

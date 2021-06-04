@@ -17,6 +17,9 @@ zh-TW:
         sign_in_count: 登入次數
         last_sign_in_at: "上次登入於"
         last_sign_in_ip: "上次登入的IP位址"
+        current_sign_in_at: "本次登入於"
+        current_sign_in_ip: "本次登入IP"
+        authorizations: 已綁定之 Open ID
       admin/user:
         <<: *user
     models:

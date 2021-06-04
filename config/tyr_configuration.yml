@@ -115,13 +115,13 @@ default:
     handle_error_method: handle_error
   asset_sync:
     enable: true
-    fog_public: true
+    fog_public: false
     existing_remote_files: keep
   asset_host:
     enable: true
   carrierwave:
     enable: true
-    fog_public: true
+    fog_public: false
   locale:
     enable: true
     default: en

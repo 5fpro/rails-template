@@ -18,12 +18,6 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-group :staging, :production do
-  # gem 'newrelic_rpm'
-end
-
 group :development do
   # capistrano
   gem 'capistrano'

@@ -28,16 +28,16 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-class Admin::User < ::User
+module Admin
+  class User < ::User
+    class << self
+      def ransackable_scopes(_auth_object = nil)
+        [:has_avatar]
+      end
 
-  class << self
-    def ransackable_scopes(_auth_object = nil)
-      [:has_avatar]
-    end
-
-    def has_avatar(_boolean = true)
-      where.not(avatar: nil)
+      def has_avatar(_boolean = true)
+        where.not(avatar: nil)
+      end
     end
   end
-
 end

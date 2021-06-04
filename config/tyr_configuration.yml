@@ -15,6 +15,13 @@ default:
     job_class_name: 'Tyr::DbBackupJob'
     s3_bucket: "<%= ENV['APP_NAME'] %>-backup"
     s3_path: database
+  model:
+    enables:
+      enum: true
+      tree: true
+      enabled: true
+      array_order: false
+      attr_json: true
   notification:
     enable: true
     table_name: notifications

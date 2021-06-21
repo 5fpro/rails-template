@@ -181,6 +181,56 @@ default:
     enable: true
     uploader: 'AttachmentUploader'
     class_name: 'Attachment'
+    enable_admin: true
+    custom_uploader:
+      enable: true
+      enable_admin: true
+      uploaders:
+        default:
+          name: 一般縮圖
+          versions:
+            thumb:
+              process:
+                resize_to_fill:
+                  - 300
+                  - 300
+            thumb_2x:
+              process:
+                resize_and_pad:
+                  - 600
+                  - 600
+            small:
+              process:
+                resize_to_limit:
+                  - 400
+                  - 400
+            small_2x:
+              process:
+                resize_to_limit:
+                  - 800
+                  - 800
+          render:
+            img:
+              src: small_2x
+              sizes: '(max-width: 500px) 90vw, 60vw'
+              srcset:
+                500w: small
+                1000w: small_2x
+            # ----- or -------
+            # picture:
+            #   -
+            #     media: "(min-width: 650px)"
+            #     srcset:
+            #       1x: samll
+            #       2x: samll_2x
+            #   -
+            #     media: "(min-width: 465px)"
+            #     srcset:
+            #       1x: small
+            #       2x: small_2x
+            #   -
+            #     src: small_2x
+
   renderers:
     enable: true
     default_exporter: 'BaseExporter'

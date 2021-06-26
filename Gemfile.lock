@@ -463,7 +463,7 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
-    rails_real_favicon (0.1.0)
+    rails_real_favicon (0.1.1)
       json (>= 1.7, < 3)
       rails
       rubyzip (~> 2)

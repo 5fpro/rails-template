@@ -33,7 +33,7 @@ group :development do
   gem 'slackistrano', require: false
 
   gem 'annotate'
-  gem 'brakeman', '~> 4'
+  gem 'brakeman', '~> 5'
   gem 'http_logger'
   gem 'listen'
   gem 'rubocop'

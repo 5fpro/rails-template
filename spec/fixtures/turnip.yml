@@ -22,5 +22,7 @@ test:
           - email
     User:
       <<: *user
+    user:
+      <<: *user
     已註冊使用者:
       <<: *user

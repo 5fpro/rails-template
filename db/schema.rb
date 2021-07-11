@@ -26,12 +26,13 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.string "target_type"
     t.integer "target_id"
     t.date "acted_on"
-    t.json "data"
+    t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["acted_on"], name: "index_activities_on_acted_on"
     t.index ["action"], name: "index_activities_on_action"
     t.index ["actor_type", "actor_id"], name: "index_activities_on_actor_type_and_actor_id"
+    t.index ["data"], name: "index_activities_on_data", using: :gin
     t.index ["target_type", "target_id"], name: "index_activities_on_target_type_and_target_id"
   end
 
@@ -128,12 +129,14 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.integer "file_size"
     t.integer "image_width"
     t.integer "image_height"
-    t.json "image_exif"
-    t.json "data"
+    t.jsonb "image_exif"
+    t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_type", "creator_id"], name: "index_attachments_on_creator_type_and_creator_id"
+    t.index ["data"], name: "index_attachments_on_data", using: :gin
     t.index ["description"], name: "trgm_attachments_description_idx", opclass: :gist_trgm_ops, using: :gist
+    t.index ["image_exif"], name: "index_attachments_on_image_exif", using: :gin
     t.index ["item_type", "item_id", "scope", "sort"], name: "index_attachments_on_item_type_and_item_id_and_scope_and_sort"
     t.index ["item_type", "item_id", "scope"], name: "index_attachments_on_item_type_and_item_id_and_scope"
     t.index ["item_type", "item_id", "sort"], name: "index_attachments_on_item_type_and_item_id_and_sort"
@@ -146,11 +149,12 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.string "auth_type"
     t.integer "auth_id"
     t.text "auth_data"
-    t.hstore "data"
+    t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["auth_type", "auth_id", "provider"], name: "index_authorizations_on_auth_type_and_auth_id_and_provider"
     t.index ["auth_type", "auth_id"], name: "index_authorizations_on_auth_type_and_auth_id"
+    t.index ["data"], name: "index_authorizations_on_data", using: :gin
     t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid"
   end
 
@@ -169,10 +173,11 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.string "description"
     t.string "identity"
     t.date "created_on"
-    t.json "data"
+    t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["created_on"], name: "index_event_logs_on_created_on"
+    t.index ["data"], name: "index_event_logs_on_data", using: :gin
     t.index ["event_type", "identity"], name: "index_event_logs_on_event_type_and_identity"
     t.index ["event_type"], name: "index_event_logs_on_event_type"
   end
@@ -189,11 +194,12 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.string "subject"
     t.string "body"
     t.date "created_on"
-    t.json "data"
+    t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["body"], name: "trgm_notifications_body_idx", opclass: :gist_trgm_ops, using: :gist
     t.index ["created_on"], name: "index_notifications_on_created_on"
+    t.index ["data"], name: "index_notifications_on_data", using: :gin
     t.index ["notify_type"], name: "index_notifications_on_notify_type"
     t.index ["object_type", "object_id"], name: "index_notifications_on_object_type_and_object_id"
     t.index ["readed", "receiver_type", "receiver_id"], name: "index_notifications_on_readed_and_receiver_type_and_receiver_id"

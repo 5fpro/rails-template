@@ -14,13 +14,14 @@
 #  subject       :string
 #  body          :string
 #  created_on    :date
-#  data          :json
+#  data          :jsonb
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
 # Indexes
 #
 #  index_notifications_on_created_on                                (created_on)
+#  index_notifications_on_data                                      (data) USING gin
 #  index_notifications_on_notify_type                               (notify_type)
 #  index_notifications_on_object_type_and_object_id                 (object_type,object_id)
 #  index_notifications_on_readed_and_receiver_type_and_receiver_id  (readed,receiver_type,receiver_id)

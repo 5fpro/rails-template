@@ -281,7 +281,7 @@ GEM
     faraday-excon (1.1.0)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.1.0)
-    ffi (1.15.3)
+    ffi (1.15.5)
     fog-aws (3.10.0)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
@@ -346,7 +346,7 @@ GEM
     kgio (2.11.4)
     kramdown (2.3.1)
       rexml
-    listen (3.5.1)
+    listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     lograge (0.11.2)

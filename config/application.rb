@@ -48,5 +48,8 @@ module Myapp
 
     # serve error pages from the Rails app itself (routes.rb)
     config.exceptions_app = self.routes
+
+    # https://guides.rubyonrails.org/v6.1/configuring.html#configuring-middleware
+    config.hosts = nil
   end
 end

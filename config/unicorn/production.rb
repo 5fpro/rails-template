@@ -50,5 +50,5 @@ after_fork do |server, worker|
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.establish_connection
   end
-  Redis.current.client.reconnect
+  Tyr::Redis.current._client.reconnect
 end

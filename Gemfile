@@ -6,7 +6,6 @@ gem 'rails', '~> 6.1', '>= 6.1.6'
 gem 'tyr', path: 'tyr'
 
 gem 'pg'
-gem 'redis'
 gem 'webpacker', '~> 5.x'
 
 # assets

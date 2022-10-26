@@ -30,7 +30,7 @@ module Admin
 
     def create
       if user.save
-        redirect_to params[:redirect_to] || admin_user_path(user), flash: { success: t('.success', locale_vars) }
+        redirect_to params[:redirect_to] || admin_user_path(user), flash: { success: t('.success', **locale_vars) }
       else
         new
         flash.now[:error] = user.errors.full_messages
@@ -40,7 +40,7 @@ module Admin
 
     def update
       if user.update(user_params)
-        redirect_to params[:redirect_to] || admin_user_path(user), flash: { success: t('.success', locale_vars) }
+        redirect_to params[:redirect_to] || admin_user_path(user), flash: { success: t('.success', **locale_vars) }
       else
         edit
         flash.now[:error] = user.errors.full_messages
@@ -50,7 +50,7 @@ module Admin
 
     def destroy
       if user.destroy
-        redirect_to params[:redirect_to] || admin_users_path, flash: { success: t('.success', locale_vars) }
+        redirect_to params[:redirect_to] || admin_users_path, flash: { success: t('.success', **locale_vars) }
       else
         redirect_to :back, flash: { error: user.errors.full_messages }
       end

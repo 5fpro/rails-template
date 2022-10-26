@@ -1,13 +1,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-ruby '2.6.6'
+ruby '3.0.4'
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.1', '>= 6.1.6'
 gem 'tyr', path: 'tyr'
 
-gem 'activerecord-postgis-adapter'
 gem 'pg'
-gem 'webpacker', '~> 4.x'
+gem 'webpacker', '~> 5.x'
 
 # assets
 gem 'coffee-rails'
@@ -60,6 +59,6 @@ end
 # unicorn
 gem 'unicorn'
 
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.12.0', require: false
 
 gem 'omniauth-line', git: 'git@github.com:marsz/omniauth-line.git'

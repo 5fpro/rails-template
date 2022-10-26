@@ -3,7 +3,7 @@ module ImageHelper
     options = options.symbolize_keys
     options[:class] ||= 'icon'
     tag.svg(options) do
-      tag :use, 'xlink:href' => "#icon-#{name}"
+      tag.use('xlink:href' => "#icon-#{name}")
     end
   end
 

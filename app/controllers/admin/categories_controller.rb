@@ -64,9 +64,9 @@ class Admin::CategoriesController < Tyr::Admin::BaseController
 
   def restore
     flash_message = if category.restore
-                      { success: t('.success', locale_vars) }
+                      { success: t('.success', **locale_vars) }
                     else
-                      { error: t('.error', locale_vars.merge(message: category.errors.full_messages.to_sentence)) }
+                      { error: t('.error', **locale_vars.merge(message: category.errors.full_messages.to_sentence)) }
                     end
     redirect_to request.referer || admin_categories_path, flash: flash_message
   end

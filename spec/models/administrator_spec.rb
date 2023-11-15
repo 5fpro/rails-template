@@ -21,6 +21,9 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
+#  mfa_token              :string
+#  mfa_secret             :string
+#  data                   :jsonb
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

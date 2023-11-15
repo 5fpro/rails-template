@@ -1,4 +1,4 @@
-class AddObjectChangesToVersions < ActiveRecord::Migration[5.1]
+class AddObjectChangesToVersions < ActiveRecord::Migration[6.0]
 
   # The largest text column available in all supported RDBMS.
   # See `create_versions.rb` for details.

@@ -6,6 +6,8 @@ default:
     enable: true
     s3:
       enable: true
+      bucket: <%= ENV['ASSET_AWS_BUCKET'] || 'dump' %>
+      path: dumps
   db_backup:
     enable: true
     available_rails_envs:
@@ -13,6 +15,13 @@ default:
     job_class_name: 'Tyr::DbBackupJob'
     s3_bucket: "<%= ENV['APP_NAME'] %>-backup"
     s3_path: database
+  model:
+    enables:
+      enum: true
+      tree: true
+      enabled: true
+      array_order: false
+      attr_json: true
   notification:
     enable: true
     table_name: notifications
@@ -35,6 +44,13 @@ default:
     enable: true
     path_prefix: '/authorizations'
     resource: user
+    providers:
+      facebook:
+        enable: true
+      github:
+        enable: true
+      google_oauth2:
+        enable: true
   revision:
     enable: <%= Rails.env.production? ? false : true %>
     path: '/revision'
@@ -86,11 +102,16 @@ default:
       - development
   admin:
     enable: true
+    enable_mfa: false
+    display_account_menu: true
     auth_redirect_to: /
-    administrator_class_name: 'Administrator'
+    route_enable_404: true
     route:
-      enable_404: true
       path: '/admin'
+    form_input_view: tyr/admin/base/templates/form_input
+    administrator_class_name: 'Administrator'
+    assets:
+      cdn_host: 'assets.5fpro.com'
     notifications:
       enable: true
       readed_context_class_name: 'Tyr::Notifications::ReadContext'
@@ -98,12 +119,16 @@ default:
       sender_name_method: name
       default_sender_avatar: 'icon-100px.png'
       body_input: redactor
+    handle_error_method: handle_error
   asset_sync:
     enable: true
+    fog_public: false
+    existing_remote_files: keep
   asset_host:
     enable: true
   carrierwave:
     enable: true
+    fog_public: false
   locale:
     enable: true
     default: en
@@ -149,8 +174,13 @@ default:
     enable: true
   event_log:
     enable: true
-    enable_admin_panel: true
     class_name: 'EventLog'
+    admin:
+      enable: true
+      scope_view_path:
+    # scopes:
+    #   default:
+    #     class_name: Tyr::EventLog
   transaction_log:
     enable: true
     class_name: 'Tyr::TransactionLog'
@@ -158,6 +188,56 @@ default:
     enable: true
     uploader: 'AttachmentUploader'
     class_name: 'Attachment'
+    enable_admin: true
+    custom_uploader:
+      enable: true
+      enable_admin: true
+      uploaders:
+        default:
+          name: 一般縮圖
+          versions:
+            thumb:
+              process:
+                resize_to_fill:
+                  - 300
+                  - 300
+            thumb_2x:
+              process:
+                resize_and_pad:
+                  - 600
+                  - 600
+            small:
+              process:
+                resize_to_limit:
+                  - 400
+                  - 400
+            small_2x:
+              process:
+                resize_to_limit:
+                  - 800
+                  - 800
+          render:
+            img:
+              src: small_2x
+              sizes: '(max-width: 500px) 90vw, 60vw'
+              srcset:
+                500w: small
+                1000w: small_2x
+            # ----- or -------
+            # picture:
+            #   -
+            #     media: "(min-width: 650px)"
+            #     srcset:
+            #       1x: samll
+            #       2x: samll_2x
+            #   -
+            #     media: "(min-width: 465px)"
+            #     srcset:
+            #       1x: small
+            #       2x: small_2x
+            #   -
+            #     src: small_2x
+
   renderers:
     enable: true
     default_exporter: 'BaseExporter'
@@ -167,6 +247,10 @@ default:
     enable: true
   taggable:
     enable: true
+  time_range_searchable:
+    enable: false
+  ransackable:
+    enable: false
   charts:
     enable: true
   phonelib:
@@ -174,12 +258,24 @@ default:
     default_country: 'TW'
   activity:
     enable: true
+    admin:
+      enable: true
+      scope_view_path:
     class_name: Activity
+    # scopes:
+    #   default:
+    #     class_name: Tyr::Activity
   page_block:
     enable: true
     class_name: 'PageBlock'
     table_name: 'page_blocks'
-    body_input: text
+    admin:
+      enable: true
+      views:
+        filtering: tyr/admin/page_blocks/filtering
+        table: tyr/admin/page_blocks/table
+        form: tyr/admin/page_blocks/form
+      body_input: text
     blocks:
       default: 預設區塊
   article:
@@ -196,11 +292,50 @@ default:
         category_max_deeps: 1
         article_class_name: Article
         category_class_name: ArticleCategory
-      blog:
-        category_max_deeps: 2
     admin:
       enable: true
-      articles_table_view_path: table
+      views:
+        article:
+          table: table
+          filtering: filtering
+          btns: btns
+          detail: detail
+          form_prefix: form_
+        category:
+          table: table
+          filtering: filtering
+          btns: btns
+          detail: detail
+          form: form
+          index_btns: index_btns
+      views:
+        article:
+          table: table
+          filtering: filtering
+          btns: btns
+          detail: detail
+          form_prefix: form_
+        category:
+          table: table
+          filtering: filtering
+          btns: btns
+          detail: detail
+          form: form
+          index_btns: index_btns
+  pageview:
+    enable: false
+    geodecode:
+      enable: false
+      ipstack_api_key:
+    default_class_name: Tyr::Pageview
+    scopes:
+      - default
+    visitors:
+      - user
+    targets:
+      - user
+    admin:
+      enable: false
   app_setting:
     enable: true
     class_name: AppSetting
@@ -208,6 +343,8 @@ default:
     admin:
       enable: true
       form_view_path: admin/settings/form
+  form_select:
+    enable: false
   redactor:
     enable: true
     default_js_options:

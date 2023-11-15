@@ -21,6 +21,9 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
+#  mfa_token              :string
+#  mfa_secret             :string
+#  data                   :jsonb
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -32,7 +35,7 @@
 #
 FactoryBot.define do
   factory :administrator do
-    name { '5Fpro' }
+    name { '5Fpro administrator' }
     sequence(:email) { |n| "admin#{n}@5fpro.com" }
     password { '12341234' }
     root { false }

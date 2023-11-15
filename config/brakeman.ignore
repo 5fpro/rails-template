@@ -5,7 +5,7 @@
       "warning_code": 70,
       "fingerprint": "5eb4c045286590eda785fb526fa46ce2e9a31c8a1e5f2076971229bbb1731103",
       "check_name": "MassAssignment",
-      "message": "Parameters should be whitelisted for mass assignment",
+      "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
       "file": "app/controllers/admin/users_controller.rb",
       "line": 66,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
@@ -21,6 +21,6 @@
       "note": ""
     }
   ],
-  "updated": "2020-04-07 12:31:06 +0800",
-  "brakeman_version": "4.8.0"
+  "updated": "2023-11-15 16:35:37 +0800",
+  "brakeman_version": "4.10.1"
 }

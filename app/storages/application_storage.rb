@@ -1,0 +1,2 @@
+class ApplicationStorage < BaseStorage
+end

@@ -1,0 +1,8 @@
+zh-TW:
+  tyr:
+    activity:
+      actions:
+        foo: bar
+    event_log:
+      event_types:
+        foo: bar

@@ -17,14 +17,16 @@
 #  file_size         :integer
 #  image_width       :integer
 #  image_height      :integer
-#  image_exif        :json
-#  data              :json
+#  image_exif        :jsonb
+#  data              :jsonb
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
 # Indexes
 #
 #  index_attachments_on_creator_type_and_creator_id               (creator_type,creator_id)
+#  index_attachments_on_data                                      (data) USING gin
+#  index_attachments_on_image_exif                                (image_exif) USING gin
 #  index_attachments_on_item_type_and_item_id                     (item_type,item_id)
 #  index_attachments_on_item_type_and_item_id_and_scope           (item_type,item_id,scope)
 #  index_attachments_on_item_type_and_item_id_and_scope_and_sort  (item_type,item_id,scope,sort)

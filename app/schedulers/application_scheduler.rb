@@ -1,0 +1,3 @@
+class ApplicationScheduler < BaseScheduler
+
+end

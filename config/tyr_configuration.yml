@@ -44,6 +44,13 @@ default:
     enable: true
     path_prefix: '/authorizations'
     resource: user
+    providers:
+      facebook:
+        enable: true
+      github:
+        enable: true
+      google_oauth2:
+        enable: true
   revision:
     enable: <%= Rails.env.production? ? false : true %>
     path: '/revision'

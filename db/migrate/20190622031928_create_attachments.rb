@@ -1,4 +1,4 @@
-class CreateAttachments < ActiveRecord::Migration[5.2]
+class CreateAttachments < ActiveRecord::Migration[6.0]
   def change
     create_table :attachments do |t|
       t.string  :name

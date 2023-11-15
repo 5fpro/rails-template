@@ -1,4 +1,4 @@
-class CreateNotifications < ActiveRecord::Migration[5.2]
+class CreateNotifications < ActiveRecord::Migration[6.0]
   def change
     create_table :notifications do |t|
       t.string :sender_type

@@ -1,4 +1,4 @@
-class EnableHstore < ActiveRecord::Migration[5.1]
+class EnableHstore < ActiveRecord::Migration[6.0]
   def up
     execute 'CREATE EXTENSION hstore'
   end

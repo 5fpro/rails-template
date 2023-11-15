@@ -1,4 +1,4 @@
-class CreateEventLogs < ActiveRecord::Migration[5.2]
+class CreateEventLogs < ActiveRecord::Migration[6.0]
   def change
     create_table :event_logs do |t|
       t.string :event_type

@@ -5,7 +5,7 @@ PATH
       activerecord-postgis-adapter (~> 6.0, >= 6.0.3)
       acts_as_list
       asset_sync
-      attr_json (< 3)
+      attr_json
       aws-sdk-cloudfront
       aws-sdk-rails
       aws-sdk-s3

@@ -6,14 +6,10 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :admin do
-    root to: 'base#index'
-    resources :users
-    resources :categories do
-      member do
-        get :revisions
-        post :restore
-      end
+  constraints Tyr.config.admin_constraints || {} do
+    namespace :admin do
+      root to: 'base#index'
+      resources :users
     end
   end
 

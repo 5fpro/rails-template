@@ -103,7 +103,6 @@ default:
   admin:
     enable: true
     enable_mfa: false
-    display_account_menu: true
     auth_redirect_to: /
     route_enable_404: true
     route:

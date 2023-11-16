@@ -46,9 +46,5 @@ module Admin
         ::User
       end
     end
-
-    def label
-      "#{name} (#{email})"
-    end
   end
 end

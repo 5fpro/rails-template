@@ -13,6 +13,7 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.infer_spec_type_from_file_location!
 
+  config.before(:each, type: :request) { host! ENV['APP_HOST'] }
   config.include RequestHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :request
 end

@@ -37,6 +37,6 @@ class User < Tyr::ApplicationRecord
 
   # devise :database_authenticatable, :trackable, :validatable, :registerable, :confirmable, :recoverable
   def label
-    name
+    "#{name} (#{email})"
   end
 end

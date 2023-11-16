@@ -1,0 +1,34 @@
+.menu_section
+  h3= t('.general')
+  ul.nav.side-menu
+    li
+      = link_to '#' do
+        i.fa.fa-gear
+        = t('.system')
+      ul.nav.child_menu
+        li= link_to t('.settings'), tyr.admin_settings_path
+        li= link_to t('.sidekiq'), '/sidekiq', target: '_blank'
+        li= link_to t('.activities'), tyr.admin_activities_path
+        li= link_to t('.event_logs'), tyr.admin_event_logs_path
+        li= link_to t('.notifications'), tyr.admin_notifications_path
+        li= link_to t('.blacklist_emails'), tyr.admin_blacklist_emails_path
+        li= link_to '萬用清單', tyr.admin_mylists_path
+    li
+      = link_to '#' do
+        i.fa.fa-file
+        = t('.content')
+      ul.nav.child_menu
+        li= link_to t('.page_blocks'), tyr.admin_page_blocks_path
+        li= link_to '網頁管理', tyr.admin_webpages_path
+        li= link_to '阿米巴變形蟲', tyr.admin_amoebas_path
+        li= link_to '文章分類', tyr.admin_article_categories_path(default_layout: :blog)
+        li= link_to '文章列表', tyr.admin_articles_path(default_layout: :blog)
+        li= link_to '檔案庫', tyr.admin_attachments_path
+        li= link_to '使用者', main_app.admin_users_path
+        li= link_to '社群綁定', tyr.admin_authorizations_path
+        li= link_to '萬用分類', tyr.admin_catalogs_path
+        li= link_to '數字記錄', tyr.admin_numeros_path
+        li= link_to 'PV記錄', tyr.admin_pageviews_path
+
+= render partial: 'leftnav_admin_menu'
+= render partial: 'leftnav_account_menu'

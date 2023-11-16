@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Admin::UsersController, type: :request do
-  before { sign_in_admin }
+  before { request_administrator_sign_in }
 
   it 'CRUD' do
     get '/admin/users'
@@ -11,7 +11,6 @@ describe Admin::UsersController, type: :request do
     expect(response).to be_successful
 
     create_params = {
-
       name: 'Mary',
       email: 'test123@asaa.com',
       password: 'qazwsxedc'

@@ -5,7 +5,7 @@ class CreateEventLogs < ActiveRecord::Migration[6.0]
       t.string :description
       t.string :identity
       t.date   :created_on
-      t.jsonb  :data
+      t.jsonb  :data, default: {}
       t.timestamps
     end
     add_index :event_logs, :event_type

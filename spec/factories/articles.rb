@@ -19,13 +19,18 @@
 #  meta_title(SEO 標題)              :string
 #  meta_description(SEO 描述)        :string
 #  meta_keywords(SEO 關鍵字)         :string
+#  total_pageviews(總瀏覽數)         :integer          default(0)
 #  deleted_at                        :datetime
+#  modified_at                       :datetime
 #  data                              :jsonb
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #
 # Indexes
 #
+#  index_articles_on_author_name                           (author_name) USING gin
+#  index_articles_on_body                                  (body) USING gin
+#  index_articles_on_data                                  (data) USING gin
 #  index_articles_on_layout                                (layout)
 #  index_articles_on_layout_and_article_category_id        (layout,article_category_id)
 #  index_articles_on_layout_and_author_name                (layout,author_name)
@@ -33,10 +38,9 @@
 #  index_articles_on_layout_and_published_on               (layout,published_on)
 #  index_articles_on_layout_and_status                     (layout,status)
 #  index_articles_on_layout_and_top                        (layout,top)
-#  trgm_articles_author_name_idx                           (author_name) USING gist
-#  trgm_articles_body_idx                                  (body) USING gist
-#  trgm_articles_subject_idx                               (subject) USING gist
-#  trgm_articles_summary_idx                               (summary) USING gist
+#  index_articles_on_layout_and_total_pageviews            (layout,total_pageviews)
+#  index_articles_on_subject                               (subject) USING gin
+#  index_articles_on_summary                               (summary) USING gin
 #
 FactoryBot.define do
   factory :article do

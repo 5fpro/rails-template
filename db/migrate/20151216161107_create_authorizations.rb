@@ -5,13 +5,14 @@ class CreateAuthorizations < ActiveRecord::Migration[6.0]
       t.string  :uid
       t.string  :auth_type
       t.integer :auth_id
-      t.text    :auth_data
-      t.jsonb   :data
+      t.jsonb   :auth_data, default: {}
+      t.jsonb   :data, default: {}
       t.timestamps null: false
     end
     add_index :authorizations, [:provider, :uid]
     add_index :authorizations, [:auth_type, :auth_id]
     add_index :authorizations, [:auth_type, :auth_id, :provider]
+    add_index :authorizations, :auth_data, using: :gin
     add_index :authorizations, :data, using: :gin
   end
 end

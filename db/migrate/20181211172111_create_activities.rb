@@ -7,7 +7,7 @@ class CreateActivities < ActiveRecord::Migration[6.0]
       t.string  :target_type
       t.integer :target_id
       t.date    :acted_on
-      t.jsonb   :data
+      t.jsonb   :data, default: {}
       t.timestamps
     end
     add_index :activities, [:actor_type, :actor_id]

@@ -2,7 +2,7 @@ class CreateAttachments < ActiveRecord::Migration[6.0]
   def change
     create_table :attachments do |t|
       t.string  :name
-      t.string  :description
+      t.text    :description
       t.string  :creator_type
       t.integer :creator_id
       t.string  :item_type
@@ -15,8 +15,8 @@ class CreateAttachments < ActiveRecord::Migration[6.0]
       t.integer :file_size
       t.integer :image_width
       t.integer :image_height
-      t.jsonb   :image_exif
-      t.jsonb   :data
+      t.jsonb   :image_exif, default: {}
+      t.jsonb   :data, default: {}
       t.timestamps
     end
     add_index :attachments, [:creator_type, :creator_id]
@@ -26,5 +26,6 @@ class CreateAttachments < ActiveRecord::Migration[6.0]
     add_index :attachments, [:item_type, :item_id, :scope, :sort]
     add_index :attachments, :image_exif, using: :gin
     add_index :attachments, :data, using: :gin
+    add_index :attachments, :description, using: :gin, opclass: :gin_trgm_ops
   end
 end

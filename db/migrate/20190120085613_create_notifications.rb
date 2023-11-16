@@ -12,7 +12,7 @@ class CreateNotifications < ActiveRecord::Migration[6.0]
       t.string :subject
       t.string :body
       t.date   :created_on
-      t.jsonb  :data
+      t.jsonb  :data, default: {}
       t.timestamps
     end
     add_index :notifications, :notify_type
@@ -22,7 +22,7 @@ class CreateNotifications < ActiveRecord::Migration[6.0]
     add_index :notifications, [:readed, :receiver_type, :receiver_id]
     add_index :notifications, :created_on
     add_index :notifications, :data, using: :gin
-    execute 'CREATE INDEX trgm_notifications_body_idx ON notifications USING gist (body gist_trgm_ops);'
-    execute 'CREATE INDEX trgm_notifications_subject_idx ON notifications USING gist (subject gist_trgm_ops);'
+    add_index :notifications, :body, using: :gin, opclass: :gin_trgm_ops
+    add_index :notifications, :subject, using: :gin, opclass: :gin_trgm_ops
   end
 end

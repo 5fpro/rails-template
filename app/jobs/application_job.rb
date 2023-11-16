@@ -1,3 +1,3 @@
 class ApplicationJob < ActiveJob::Base
-  include RetryableConcern
+  # include RetryableConcern
 end

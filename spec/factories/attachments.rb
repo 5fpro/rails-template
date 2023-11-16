@@ -26,12 +26,12 @@
 #
 #  index_attachments_on_creator_type_and_creator_id               (creator_type,creator_id)
 #  index_attachments_on_data                                      (data) USING gin
+#  index_attachments_on_description                               (description) USING gin
 #  index_attachments_on_image_exif                                (image_exif) USING gin
 #  index_attachments_on_item_type_and_item_id                     (item_type,item_id)
 #  index_attachments_on_item_type_and_item_id_and_scope           (item_type,item_id,scope)
 #  index_attachments_on_item_type_and_item_id_and_scope_and_sort  (item_type,item_id,scope,sort)
 #  index_attachments_on_item_type_and_item_id_and_sort            (item_type,item_id,sort)
-#  trgm_attachments_description_idx                               (description) USING gist
 #
 FactoryBot.define do
   factory :attachment do

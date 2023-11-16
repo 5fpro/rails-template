@@ -3,24 +3,24 @@
     {
       "warning_type": "Mass Assignment",
       "warning_code": 70,
-      "fingerprint": "5eb4c045286590eda785fb526fa46ce2e9a31c8a1e5f2076971229bbb1731103",
+      "fingerprint": "7ec4a068c99be7f5a93d00b202c7d264f1899420b3dba0e7af0cd760aee45e79",
       "check_name": "MassAssignment",
       "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
       "file": "app/controllers/admin/users_controller.rb",
-      "line": 66,
+      "line": 111,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.fetch(:user, {}).permit!",
+      "code": "params.fetch(object_name, {}).permit!",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Admin::UsersController",
-        "method": "user_params"
+        "method": "instance_params"
       },
       "user_input": null,
       "confidence": "Medium",
       "note": ""
     }
   ],
-  "updated": "2023-11-15 16:35:37 +0800",
+  "updated": "2023-11-16 11:29:57 +0800",
   "brakeman_version": "4.10.1"
 }

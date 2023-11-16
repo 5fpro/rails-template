@@ -4,6 +4,7 @@
 #
 #  id                     :bigint           not null, primary key
 #  name                   :string
+#  avatar                 :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
@@ -18,33 +19,23 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
+#  data                   :jsonb
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  avatar                 :string
 #
 # Indexes
 #
 #  index_users_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_users_on_data                  (data) USING gin
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_name                  (name) USING gin
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 FactoryBot.define do
-  factory :user do
-    name { '5Fpro' }
-    sequence(:email) { |n| "user#{n}@5fpro.com" }
-    password { '12341234' }
-    confirmed_at { Time.now }
+  factory :user, class: 'User' do
 
-    trait :unconfirmed do
-      confirmed_at { nil }
-    end
-
-    trait :with_avatar do
-      avatar { File.open(Rails.root.join('spec', 'fixtures', '5fpro.png')) }
-    end
-
-    trait :admin_creation do
-      confirmed_at { nil }
-    end
+    name { '業務夥伴1' }
+    sequence(:email) { |n| "abc#{n}@aaa.com" }
+    password { 'qazwsxedc' }
   end
 end

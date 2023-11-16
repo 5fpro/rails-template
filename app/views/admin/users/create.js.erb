@@ -1,0 +1,8 @@
+<%- instance = @context || @instance %>
+<%- if instance.errors.empty? %>
+  Tyr.refreshSelect2FromOpenedModal('<%= @instance.id || '' %>');
+<% else %>
+  var form = $('.modal:visible').find('form');
+  var errors = <%= instance.errors.to_hash.to_json.html_safe %>;
+  Tyr.applyErrorsToForm(form, errors, { object_name: '<%= @object_name %>' });
+<% end %>

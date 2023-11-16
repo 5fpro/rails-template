@@ -1,6 +1,9 @@
-= admin_search_form_for @q, as: :q_user, url: admin_users_path do |f|
-  = f.input :has_avatar, as: :switch
-  = f.input :name_cont
-  = f.input :email_cont
-  = f.input :sql, as: :debug_sql
-  = f.submit_cancel
+= f.input :name_cont
+= f.input :email_cont
+= f.input :has_avatar, as: :boolean_radios
+= f.input :sign_in_count_gteq, as: :integer
+= f.input :sign_in_count_lteq, as: :integer
+= f.input :created_at_gteq, as: :datetime, html5: true
+= f.input :created_at_lteq, as: :datetime, html5: true
+= f.input :sql, as: :debug_sql
+= f.submit_cancel cancel: admin_users_path

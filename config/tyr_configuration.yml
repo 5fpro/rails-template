@@ -6,25 +6,28 @@ default:
     enable: true
     s3:
       enable: true
-      bucket: <%= ENV['ASSET_AWS_BUCKET'] || 'dump' %>
-      path: dumps
   db_backup:
     enable: true
-    available_rails_envs:
-      - production
-    job_class_name: 'Tyr::DbBackupJob'
     s3_bucket: "<%= ENV['APP_NAME'] %>-backup"
-    s3_path: database
+    exclude_tables:
+      -
+  imager:
+    enable: true
   model:
     enables:
       enum: true
       tree: true
       enabled: true
-      array_order: false
+      array_order: true
       attr_json: true
+      jsonb_property: false
+      address: false
+      variables: false
+      sn: false
+  for_text_search:
+    enable: true
   notification:
     enable: true
-    table_name: notifications
     class_name: Notification
   rack:
     middlewares:
@@ -36,48 +39,45 @@ default:
     enable: true
     ses:
       enable: true
+      auto_blacklist: true
       notification_emails:
         - hi@5fpro.com
     s3:
       enable: false # 目前沒有影響
   omniauth:
     enable: true
-    path_prefix: '/authorizations'
     resource: user
     providers:
       facebook:
         enable: true
       github:
-        enable: true
+        enable: false
       google_oauth2:
         enable: true
+  linebot:
+    enable: false
   revision:
     enable: <%= Rails.env.production? ? false : true %>
-    path: '/revision'
   seo_robots:
     enable: true
-    view_path: 'tyr/services/robots'
-    sitemap_url: '<%= "#{TyrSetting.default_protocol}://#{TyrSetting.assets_host}/sitemaps/sitemap.xml.gz" %>'
   sitemap:
     enable: true
-    ping_search_engines: false
-    envs:
-      - production
+    sites:
+      default:
+        ping_search_engines: true
+        cloudfront_id:
+        cloudfront_invalidation: /sitemaps/*
   comments:
-    enable: true
+    enable: false
   sidekiq:
     enable: true
-    path: '/sidekiq'
   sidekiq_scheduler:
     enable: true
-    yaml_path: 'config/sidekiq_scheduler.yml'
   tappay:
-    enable: true
+    enable: false
   devise:
     enable: true
-    resource: user
-    parent_controller: 'Tyr::DeviseBaseController'
-    mailer: 'Tyr::DeviseBaseMailer'
+    mailer_view_path: 'tyr/users/mailer'
     layouts:
       user: tyr_admin_landing
       administrator: tyr_admin_landing
@@ -86,88 +86,53 @@ default:
   meta_tags:
     enable: true
   mfa:
-    enable: false
-    time_until_expiration_by_hours: 24
-    cookie_key_suffix: mfa_credentials
-    cookie_options:
-      httponly: true
-      secure: <%= ENV['DEFAULT_PROTOCOL'] == 'http' ? false : true %>
-      domain: all
-    scopes:
-      administrator:
-        view_layout: tyr_admin_landing
-        view_path: new
-        success_redirect: '/admin'
-    whitelist_envs:
-      - development
+    enable: true
   admin:
     enable: true
-    enable_mfa: false
-    display_account_menu: true
-    auth_redirect_to: /
-    route_enable_404: true
-    route:
-      path: '/admin'
-    form_input_view: tyr/admin/base/templates/form_input
+    enable_mfa: true
+    enable_permission: true
+    enable_my_link: true
     administrator_class_name: 'Administrator'
     assets:
       cdn_host: 'assets.5fpro.com'
     notifications:
       enable: true
-      readed_context_class_name: 'Tyr::Notifications::ReadContext'
-      read_all_context_class_name: 'Tyr::Notifications::ReadAllContext'
-      sender_name_method: name
-      default_sender_avatar: 'icon-100px.png'
-      body_input: redactor
-    handle_error_method: handle_error
+  permission:
+    enable: true
   asset_sync:
     enable: true
     fog_public: false
-    existing_remote_files: keep
   asset_host:
     enable: true
   carrierwave:
     enable: true
     fog_public: false
+    # distribution_id: "<%= ENV['CARRIERWAVE_DISTRIBUTION_ID'] %>"
+    tinypng:
+      enable: false
+    cloudconvert:
+      enable: true
   locale:
     enable: true
-    default: en
+    default: zh-TW
     available:
       - en
       - zh-TW
   lograge:
     enable: true
-    log_request_body: false
-    base_controller_class: 'ActionController::Base'
   api:
     enable: true
-    route:
-      path: '/api'
-    error:
-      view: tyr/api/base/error
-      partial: tyr/api/base/error
-    error_class_name: 'Tyr::Api::RespondError'
-    layout: tyr_api
   mailer:
     enable: true
     enable_blacklist: true
     notification_email: 'noreply@5fpro.com'
     layout: mailer
-    helpers:
-      -
   staging_authorize:
     enable: true
   redis:
     enable: true
   rollbar:
     enable: true
-    options:
-      instance_method: 'current_user'
-      id_method: 'id'
-      name_method: 'name'
-      email_method: 'email'
-    sidekiq_queue: 'rollbar'
-    use_sidekiq: true
   paper_trail:
     enable: true
   dalli:
@@ -175,15 +140,10 @@ default:
   event_log:
     enable: true
     class_name: 'EventLog'
-    admin:
-      enable: true
-      scope_view_path:
-    # scopes:
-    #   default:
-    #     class_name: Tyr::EventLog
-  transaction_log:
+  post_redirect:
     enable: true
-    class_name: 'Tyr::TransactionLog'
+  transaction_log:
+    enable: false
   attachment:
     enable: true
     uploader: 'AttachmentUploader'
@@ -216,6 +176,13 @@ default:
                 resize_to_limit:
                   - 800
                   - 800
+            cloudconvert_small_2x:
+              process:
+                resize_to_limit:
+                  - 800
+                  - 800
+                to_cloudconvert:
+                  - webp
           render:
             img:
               src: small_2x
@@ -240,44 +207,33 @@ default:
 
   renderers:
     enable: true
-    default_exporter: 'BaseExporter'
   sortable:
     enable: true
   restorable:
-    enable: true
+    enable: false
   taggable:
     enable: true
-  time_range_searchable:
-    enable: false
   ransackable:
-    enable: false
+    enable: true
   charts:
     enable: true
   phonelib:
     enable: true
-    default_country: 'TW'
   activity:
     enable: true
-    admin:
-      enable: true
-      scope_view_path:
     class_name: Activity
-    # scopes:
-    #   default:
-    #     class_name: Tyr::Activity
+  preview:
+    enable: true
   page_block:
     enable: true
     class_name: 'PageBlock'
-    table_name: 'page_blocks'
-    admin:
-      enable: true
-      views:
-        filtering: tyr/admin/page_blocks/filtering
-        table: tyr/admin/page_blocks/table
-        form: tyr/admin/page_blocks/form
-      body_input: text
     blocks:
-      default: 預設區塊
+      default:
+        label: 預設區塊
+        preview_url: /
+        body_input: redactorx
+        helpers:
+          - Tyr::UtilitHelper
   article:
     enable: true
     enable_restore: false
@@ -292,50 +248,25 @@ default:
         category_max_deeps: 1
         article_class_name: Article
         category_class_name: ArticleCategory
+      blog:
+        article_class_name: Article
+        category_class_name: ArticleCategory
     admin:
       enable: true
-      views:
-        article:
-          table: table
-          filtering: filtering
-          btns: btns
-          detail: detail
-          form_prefix: form_
-        category:
-          table: table
-          filtering: filtering
-          btns: btns
-          detail: detail
-          form: form
-          index_btns: index_btns
-      views:
-        article:
-          table: table
-          filtering: filtering
-          btns: btns
-          detail: detail
-          form_prefix: form_
-        category:
-          table: table
-          filtering: filtering
-          btns: btns
-          detail: detail
-          form: form
-          index_btns: index_btns
   pageview:
-    enable: false
+    enable: true
     geodecode:
       enable: false
       ipstack_api_key:
     default_class_name: Tyr::Pageview
     scopes:
       - default
-    visitors:
-      - user
-    targets:
-      - user
     admin:
-      enable: false
+      enable: true
+  line_item:
+    enable: false
+  cart:
+    enable: false
   app_setting:
     enable: true
     class_name: AppSetting
@@ -343,38 +274,50 @@ default:
     admin:
       enable: true
       form_view_path: admin/settings/form
-  form_select:
-    enable: false
-  redactor:
+  webpage:
     enable: true
-    default_js_options:
-      imageUpload: '/tyr_redactor/images'
-      imageManagerJson: '/tyr_redactor/images'
-      imageUploadFields: '[name="authenticity_token"]'
-      fileUpload: '/tyr_redactor/files'
-      fileManagerJson: '/tyr_redactor/files'
-      fileUploadFields: '[name="authenticity_token"]'
-      plugins:
-        - 'fullscreen'
-        - 'textdirection'
-        - 'video'
-        - 'table'
-        - 'imagemanager'
-        - 'filemanager'
-        - 'fontcolor'
-        - 'fontsize'
-      buttons:
-        - 'html'
-        - 'fullscreen'
-        - 'format'
-        - 'fontcolor'
-        - 'fontsize'
-        - 'bold'
-        - 'italic'
-        - 'deleted'
-        - 'lists'
-        - 'link'
-        - 'image'
-        - 'file'
-        - 'video'
-        - 'table'
+    enable_route: true
+    enable_web_schema: true
+  form_select:
+    enable: true
+    layouts:
+      users:
+        class_name: User
+        search_attributes:
+          - name
+          - email
+  edm:
+    enable: false
+  recaptcha:
+    enable: true
+  cvs_selector:
+    enable: false
+  background_task:
+    enable: true
+    admin:
+      enable: true
+  amoeba:
+    enable: true
+    admin:
+      enable: true
+  catalog:
+    enable: true
+  telegram:
+    enable: true
+  onetime:
+    enable: true
+  redactor:
+    enable: false
+  imperavi:
+    enable: true
+  codemirror:
+    enable: true
+  mylist:
+    enable: true
+  web_schema:
+    enable: true
+  numero:
+    enable: true
+    admin:
+      enable: true
+

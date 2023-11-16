@@ -29,7 +29,7 @@ class FakeDataContext < BaseContext
   def create_admins!
     email = 'admin@5fpro.com'
     @administrator = Administrator.find_by(email: email) || FactoryBot.create(:administrator, email: email, password: password)
-    @administrator.update(password: password)
+    @administrator.update(password: password, root: true)
   end
 
 end

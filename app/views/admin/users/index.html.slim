@@ -1,29 +1,12 @@
-- append_page_button(tv('button-export', model: User), url_for(request.params.merge(format: :csv)), icon: :download, color: :success)
-- append_page_button(tv('button-new', model: User), new_admin_user_path, icon: :plus, color: :primary)
+= render partial: 'index_btns'
 
-.row
-  = admin_widget_box tv('widget-filtering', model: User) do
-    = render partial: 'filtering', as: :q, object: @q
+.row.filtering
+  = admin_widget_box tv('widget-filtering', model: @klass), closed: params[@search_key].blank? do
+    = admin_search_form_for @q, as: @search_key, url: admin_users_path do |f|
+      - if params[:search_key].present?
+        input type="hidden" name="search_key" value="#{@search_key}"/
+      = render partial: 'filtering', as: :f, object: f
 
-.row
-  = admin_widget_box tv('widget-list', model: User) do
-    = render_admin_data_table(data: @users) do
-      thead
-        tr
-          th= tv('user.id')
-          th= tv('user.name')
-          th= tv('user.email')
-          th= tv('user.confirmed')
-          th= tv('actions')
-      tbody
-        - @users.each do |user|
-          tr class="pointer #{cycle('odd', 'even')}"
-            td= user.id
-            td= user.name
-            td= user.email
-            td
-              = tv('yes') if user.try(:confirmed?)
-            td
-              = admin_link_to tv('show'), admin_user_path(user), size: :s, icon: :info
-              = admin_link_to tv('edit'), edit_admin_user_path(user), color: :success, size: :s, icon: :pencil
-              = admin_link_to tv('delete'), admin_user_path(user), method: :delete, 'data-confirm': tv('delete-confirm'), color: :danger, size: :s, icon: :remove
+.row.instances-table
+  = admin_widget_box tv('widget-list', model: @klass) do
+    = render partial: 'table', as: :instances, object: @instances

@@ -1,10 +1,9 @@
 module Admin
-  class UserExporter < ::ApplicationExporter
+
+  class UserExporter < ApplicationExporter
     define_export(
-      :id,
-      :name,
-      :email,
-      :sign_in_count
+      'ID': :id,
+      'Created At': :created_at.to_s
     )
   end
 end

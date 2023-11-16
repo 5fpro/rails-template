@@ -1,0 +1,33 @@
+= render_admin_table(bordered: true) do
+  tr
+    th width="20%"
+      = tv('user.id')
+    td= instance.id
+
+  tr
+    td= tv('user.id')
+    td= instance.id
+  tr
+    td= tv('user.name')
+    td= instance.name
+  tr
+    td= tv('user.email')
+    td= instance.email
+  tr
+    td= tv('user.avatar')
+    td= instance.avatar
+  tr
+    td= tv('user.current_sign_in_at')
+    td= instance.current_sign_in_at
+  tr
+    td= tv('user.current_sign_in_ip')
+    td= instance.current_sign_in_ip
+  tr
+    th= tv('user.data')
+    td= render_data_with_textarea instance.data
+  tr
+    th= tv('user.created_at')
+    td= instance.created_at
+  tr
+    th= tv('user.updated_at')
+    td= instance.updated_at

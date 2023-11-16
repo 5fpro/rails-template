@@ -1,39 +1,41 @@
 zh-TW:
-  admin:
-    menu_text:
-      users:
-        label: 使用者
   activerecord:
     attributes:
       user: &user
-        id: '#'
-        created_at: 建立時間
-        updated_at: 更新時間
+      
+        id: ID
         name: 名稱
+        email: 電子郵件
         avatar: 頭像
-        confirmed: 已認證
-        password: 登入密碼
-        email: Email
-        sign_in_count: 登入次數
-        last_sign_in_at: "上次登入於"
-        last_sign_in_ip: "上次登入的IP位址"
-        current_sign_in_at: "本次登入於"
-        current_sign_in_ip: "本次登入IP"
-        authorizations: 已綁定之 Open ID
+        current_sign_in_at: 最後登入時間
+        current_sign_in_ip: 最後登入IP
+        created_at: 資料建立時間
+        updated_at: 資料更新時間
+    
       admin/user:
         <<: *user
     models:
       user: 使用者
+    
+      admin/user: 使用者
   simple_form:
     labels:
-      q_user:
-        name_cont: 名稱包含
-        email_cont: Email 包含
+      q_user: &q_user
+      
+        name_cont: 名稱
+        email_cont: 電子郵件
         has_avatar: 有頭像
-      user:
-        <<: *user
+        sign_in_count_gteq: 登入次數起
+        sign_in_count_lteq: 登入次數迄
+        created_at_gteq: 資料建立時間起
+        created_at_lteq: 資料建立時間迄
     placeholders:
-      user:
-        <<: *user
-      admin/user:
-        <<: *user
+      q_user:
+        <<: *q_user
+    # hints:
+      # q_user:
+      # user:
+  helpers:
+    submit:
+      q_user:
+        create: 篩選

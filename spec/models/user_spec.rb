@@ -30,11 +30,10 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-FactoryBot.define do
-  factory :user, class: 'User' do
+require 'rails_helper'
 
-    name { '業務夥伴1' }
-    sequence(:email) { |n| "abc#{n}@aaa.com" }
-    password { 'qazwsxedc' }
+describe User, type: :model do
+  it 'factory' do
+    create(:user)
   end
 end

@@ -1,6 +1,8 @@
-= render partial: 'btns', object: @user, as: :user
+= render partial: 'btns', object: @instance, as: :instance
 
 .row
-  = admin_widget_box tv('widget-edit', model: @user, id: @user.id) do
-    = admin_form_for @user, as: :user, wrapper: :admin do |f|
-      = render partial: "form", object: f, as: :f
+  = admin_widget_box tv('widget-edit', model: @instance, id: @instance.id), xhr: request.xhr? do
+    = admin_form_for @instance, as: @object_name, wrapper: :admin, nested: true, remote: request.xhr?, url: admin_user_path(@instance) do |f|
+      - if params[:object_name].present?
+        input type="hidden" name="object_name" value="#{@object_name}"/
+      = render partial: 'form', object: f, as: :f

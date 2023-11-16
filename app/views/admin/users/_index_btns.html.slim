@@ -1,0 +1,2 @@
+- append_page_button(tv('button-new', model: @klass), new_admin_user_path, icon: :plus, color: :primary, class: 'index-btns-new') if tyr_policy(@klass).new?
+- append_page_button(tv('button-export'), current_url_for(format: :xlsx), icon: :download, class: 'index-btns-export') if tyr_policy(@klass).export?

@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.integer "target_id"
     t.date "acted_on"
     t.jsonb "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["acted_on"], name: "index_activities_on_acted_on"
     t.index ["action"], name: "index_activities_on_action"
     t.index ["actor_type", "actor_id"], name: "index_activities_on_actor_type_and_actor_id"
@@ -73,8 +73,8 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.integer "articles_count", default: 0, comment: "文章數"
     t.datetime "deleted_at"
     t.jsonb "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["layout", "deep"], name: "index_article_categories_on_layout_and_deep"
     t.index ["layout", "enabled", "sort"], name: "index_article_categories_on_layout_and_enabled_and_sort"
     t.index ["layout", "enabled"], name: "index_article_categories_on_layout_and_enabled"
@@ -102,8 +102,8 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.string "meta_keywords", comment: "SEO 關鍵字"
     t.datetime "deleted_at"
     t.jsonb "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["author_name"], name: "trgm_articles_author_name_idx", opclass: :gist_trgm_ops, using: :gist
     t.index ["body"], name: "trgm_articles_body_idx", opclass: :gist_trgm_ops, using: :gist
     t.index ["layout", "article_category_id"], name: "index_articles_on_layout_and_article_category_id"
@@ -134,8 +134,8 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.integer "image_height"
     t.jsonb "image_exif"
     t.jsonb "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_type", "creator_id"], name: "index_attachments_on_creator_type_and_creator_id"
     t.index ["data"], name: "index_attachments_on_data", using: :gin
     t.index ["description"], name: "trgm_attachments_description_idx", opclass: :gist_trgm_ops, using: :gist
@@ -153,22 +153,12 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.integer "auth_id"
     t.text "auth_data"
     t.jsonb "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["auth_type", "auth_id", "provider"], name: "index_authorizations_on_auth_type_and_auth_id_and_provider"
     t.index ["auth_type", "auth_id"], name: "index_authorizations_on_auth_type_and_auth_id"
     t.index ["data"], name: "index_authorizations_on_data", using: :gin
     t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid"
-  end
-
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
-    t.integer "sort"
-    t.index ["name"], name: "index_categories_on_name"
-    t.index ["sort"], name: "index_categories_on_sort"
   end
 
   create_table "event_logs", force: :cascade do |t|
@@ -177,8 +167,8 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.string "identity"
     t.date "created_on"
     t.jsonb "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["created_on"], name: "index_event_logs_on_created_on"
     t.index ["data"], name: "index_event_logs_on_data", using: :gin
     t.index ["event_type", "identity"], name: "index_event_logs_on_event_type_and_identity"
@@ -198,8 +188,8 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.string "body"
     t.date "created_on"
     t.jsonb "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["body"], name: "trgm_notifications_body_idx", opclass: :gist_trgm_ops, using: :gist
     t.index ["created_on"], name: "index_notifications_on_created_on"
     t.index ["data"], name: "index_notifications_on_data", using: :gin
@@ -215,28 +205,12 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.string "name"
     t.text "body"
     t.boolean "enabled", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "template_engine"
     t.text "variables"
     t.index ["enabled"], name: "index_page_blocks_on_enabled"
     t.index ["name"], name: "index_page_blocks_on_name"
-  end
-
-  create_table "redactor2_assets", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "data_file_name", null: false
-    t.string "data_content_type"
-    t.integer "data_file_size"
-    t.integer "assetable_id"
-    t.string "assetable_type", limit: 30
-    t.string "type", limit: 30
-    t.integer "width"
-    t.integer "height"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["assetable_type", "assetable_id"], name: "idx_redactor2_assetable"
-    t.index ["assetable_type", "type", "assetable_id"], name: "idx_redactor2_assetable_type"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -261,6 +235,7 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
+    t.string "avatar"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -275,10 +250,11 @@ ActiveRecord::Schema.define(version: 2019_07_25_075437) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "avatar"
+    t.jsonb "data", default: {}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["data"], name: "index_users_on_data", using: :gin
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

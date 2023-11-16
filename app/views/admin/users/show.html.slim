@@ -1,24 +1,6 @@
-= render partial: 'btns', object: @user, as: :user
+= render partial: 'btns', object: @instance, as: :instance
 
 .row
-  = admin_widget_box tv('widget-show', model: @user, id: @user.id) do
-    = render_admin_table(bordered: true) do
-      tr
-        th width="20%"
-          = tv('user.id')
-        td= @user.id
-      tr
-        th= tv('user.name')
-        td= @user.name
-      tr
-        th= tv('user.email')
-        td= @user.email
-      tr
-        th= tv('user.confirmed')
-        td= tv('yes') if @user.confirmed?
-      tr
-        th= tv('user.last_sign_in_at')
-        td= @user.last_sign_in_at
-      tr
-        th= tv('user.last_sign_in_ip')
-        td= @user.last_sign_in_ip
+  = admin_widget_box tv('widget-show', model: @instance, id: @instance.id) do
+    = render partial: 'detail', object: @instance, as: :instance
+

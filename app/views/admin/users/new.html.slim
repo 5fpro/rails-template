@@ -1,4 +1,6 @@
 .row
-  = admin_widget_box tv('widget-new', model: @user) do
-    = admin_form_for @user, as: :user do |f|
+  = admin_widget_box tv('widget-new', model: @instance, xhr: request.xhr?) do
+    = admin_form_for @instance, as: @object_name, nested: true, remote: request.xhr?, url: admin_users_path, wrapper: :admin do |f|
+      - if params[:object_name].present?
+        input type="hidden" name="object_name" value="#{@object_name}"/
       = render partial: 'form', object: f, as: :f

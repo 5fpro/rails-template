@@ -1,0 +1,28 @@
+= render_admin_data_table(data: instances, datatable: { responsive: false, fixedColumns: { left: 2 } }) do
+  thead
+    tr
+      th width="50"= tv('user.id')
+      th width="200"= tv('actions')
+
+      th= tv('user.avatar')
+      th= tv('user.name')
+      th= tv('user.email')
+      th= tv('user.current_sign_in_at')
+      th= tv('user.current_sign_in_ip')
+      th= tv('user.created_at')
+  tbody
+    - instances.each do |instance|
+      tr class="pointer #{cycle('odd', 'even')}"
+        td= instance.id
+        td
+          = admin_link_to tv('show'), admin_user_path(instance), size: :s, icon: :info if tyr_policy(instance).show?
+          = admin_link_to tv('edit'), edit_admin_user_path(instance), color: 'success', size: :s, icon: :pencil if tyr_policy(instance).edit?
+
+          = admin_link_to tv('clone'), new_admin_user_path(clone_from: instance.id), size: :s, icon: :clone if tyr_policy(instance).new?
+          = admin_link_to tv('delete'), admin_user_path(instance), method: :delete, 'data-confirm': tv('delete-confirm'), color: 'danger', size: :s, icon: :remove if tyr_policy(instance).destroy?
+        td= image_tag(instance.avatar.url, size: '50x50') if instance.avatar?
+        td= instance.name
+        td= instance.email
+        td= instance.current_sign_in_at
+        td= instance.current_sign_in_ip
+        td= instance.created_at

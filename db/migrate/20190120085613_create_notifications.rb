@@ -5,8 +5,8 @@ class CreateNotifications < ActiveRecord::Migration[6.0]
       t.string :sender_id
       t.string :receiver_type
       t.string :receiver_id
-      t.string :object_type
-      t.string :object_id
+      t.string :item_type
+      t.string :item_id
       t.string :notify_type
       t.boolean :readed, default: false
       t.string :subject
@@ -18,7 +18,7 @@ class CreateNotifications < ActiveRecord::Migration[6.0]
     add_index :notifications, :notify_type
     add_index :notifications, [:sender_type, :sender_id]
     add_index :notifications, [:receiver_type, :receiver_id]
-    add_index :notifications, [:object_type, :object_id]
+    add_index :notifications, [:item_type, :item_id]
     add_index :notifications, [:readed, :receiver_type, :receiver_id]
     add_index :notifications, :created_on
     add_index :notifications, :data, using: :gin

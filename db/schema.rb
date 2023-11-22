@@ -80,8 +80,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.boolean "boolean", default: false
     t.string "people_type"
     t.integer "people_id"
-    t.string "object_type"
-    t.integer "object_id"
+    t.string "item_type"
+    t.integer "item_id"
     t.string "context_type"
     t.integer "context_id"
     t.text "configuration"
@@ -92,8 +92,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.index ["data"], name: "index_amoebas_on_data", using: :gin
     t.index ["date"], name: "index_amoebas_on_date"
     t.index ["integer"], name: "index_amoebas_on_integer"
+    t.index ["item_type", "item_id"], name: "index_amoebas_on_item_type_and_item_id"
     t.index ["layout"], name: "index_amoebas_on_layout"
-    t.index ["object_type", "object_id"], name: "index_amoebas_on_object_type_and_object_id"
     t.index ["people_type", "people_id"], name: "index_amoebas_on_people_type_and_people_id"
     t.index ["sort", "enabled"], name: "index_amoebas_on_sort_and_enabled"
     t.index ["sort"], name: "index_amoebas_on_sort"
@@ -322,8 +322,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.string "sender_id"
     t.string "receiver_type"
     t.string "receiver_id"
-    t.string "object_type"
-    t.string "object_id"
+    t.string "item_type"
+    t.string "item_id"
     t.string "notify_type"
     t.boolean "readed", default: false
     t.string "subject"
@@ -335,8 +335,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.index ["body"], name: "index_notifications_on_body", opclass: :gin_trgm_ops, using: :gin
     t.index ["created_on"], name: "index_notifications_on_created_on"
     t.index ["data"], name: "index_notifications_on_data", using: :gin
+    t.index ["item_type", "item_id"], name: "index_notifications_on_item_type_and_item_id"
     t.index ["notify_type"], name: "index_notifications_on_notify_type"
-    t.index ["object_type", "object_id"], name: "index_notifications_on_object_type_and_object_id"
     t.index ["readed", "receiver_type", "receiver_id"], name: "index_notifications_on_readed_and_receiver_type_and_receiver_id"
     t.index ["receiver_type", "receiver_id"], name: "index_notifications_on_receiver_type_and_receiver_id"
     t.index ["sender_type", "sender_id"], name: "index_notifications_on_sender_type_and_sender_id"

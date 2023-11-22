@@ -1,4 +1,4 @@
-class CreateWebpages < ActiveRecord::Migration[6.0]
+class CreateWebpages < ActiveRecord::Migration[7.1]
   def change
     create_table :webpages do |t|
       t.boolean :enabled, default: false

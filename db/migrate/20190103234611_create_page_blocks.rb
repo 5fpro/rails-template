@@ -1,4 +1,4 @@
-class CreatePageBlocks < ActiveRecord::Migration[6.0]
+class CreatePageBlocks < ActiveRecord::Migration[7.1]
   def change
     create_table :page_blocks do |t|
       t.string  :name

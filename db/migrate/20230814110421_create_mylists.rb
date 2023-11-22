@@ -1,4 +1,4 @@
-class CreateMylists < ActiveRecord::Migration[6.0]
+class CreateMylists < ActiveRecord::Migration[7.1]
   def up
     create_table :mylists do |t|
       t.string :layout

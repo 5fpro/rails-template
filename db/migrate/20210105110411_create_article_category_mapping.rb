@@ -1,4 +1,4 @@
-class CreateArticleCategoryMapping < ActiveRecord::Migration[6.0]
+class CreateArticleCategoryMapping < ActiveRecord::Migration[7.1]
   def change
     create_table :article_category_mappings do |t|
       t.integer :article_category_id, comment: '文章分類'

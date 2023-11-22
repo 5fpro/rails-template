@@ -1,4 +1,4 @@
-class CreateNumeros < ActiveRecord::Migration[6.0]
+class CreateNumeros < ActiveRecord::Migration[7.1]
   def up
     create_table :numeros do |t|
       t.string :layout

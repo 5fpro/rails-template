@@ -1,4 +1,4 @@
-class CreateAmoebas < ActiveRecord::Migration[6.0]
+class CreateAmoebas < ActiveRecord::Migration[7.1]
   def up
     create_table :amoebas do |t|
       t.string :layout

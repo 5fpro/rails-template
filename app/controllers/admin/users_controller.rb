@@ -10,7 +10,7 @@ module Admin
     before_action :add_instance_breadcrumb, only: [:show, :edit, :update]
 
     def index
-      @q = relation.ransack(params[search_key], search_key: search_key)
+      @q = relation.ransack(params[search_key], search_key:)
       @instances = @q.result.order(id: :desc).page(params[:page]).per(params[:per])
       respond_with @instances, exporter: 'Admin::UserExporter', filename: "使用者資料-#{Time.current.to_i}"
     end

@@ -3,7 +3,7 @@ module Api
     skip_before_action :tyr_http_auth, raise: false
 
     def index
-      redirect_to 'https://api-doc.5fpro.com'
+      redirect_to 'https://api-doc.5fpro.com', allow_other_host: true
     end
 
     def error

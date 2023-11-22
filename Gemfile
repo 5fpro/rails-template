@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-ruby '2.7.7'
+ruby '3.2.2'
 
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 7.1'
 gem 'tyr', path: 'tyr'
 
 gem 'activerecord-postgis-adapter'
@@ -38,7 +38,7 @@ end
 
 group :development, :test do
   gem 'byebug'
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '~> 6.2.0'
   gem 'rspec'
   gem 'rspec-rails'
 end

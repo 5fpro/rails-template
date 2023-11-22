@@ -2,15 +2,16 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_17_072407) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
+  create_schema "postgis"
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
@@ -29,8 +30,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.integer "target_id"
     t.date "acted_on"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["acted_on"], name: "index_activities_on_acted_on"
     t.index ["action"], name: "index_activities_on_action"
     t.index ["actor_type", "actor_id"], name: "index_activities_on_actor_type_and_actor_id"
@@ -44,22 +45,22 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.string "mfa_token"
     t.string "mfa_secret"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["confirmation_token"], name: "index_administrators_on_confirmation_token", unique: true
     t.index ["email"], name: "index_administrators_on_email", unique: true
     t.index ["reset_password_token"], name: "index_administrators_on_reset_password_token", unique: true
@@ -70,7 +71,7 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.jsonb "data", default: {}
     t.integer "sort"
     t.boolean "enabled", default: false
-    t.datetime "datetime"
+    t.datetime "datetime", precision: nil
     t.date "date"
     t.integer "integer"
     t.decimal "float"
@@ -84,8 +85,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "context_type"
     t.integer "context_id"
     t.text "configuration"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["boolean"], name: "index_amoebas_on_boolean"
     t.index ["context_type", "context_id"], name: "index_amoebas_on_context_type_and_context_id"
     t.index ["data"], name: "index_amoebas_on_data", using: :gin
@@ -108,10 +109,10 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.integer "deep", default: 0, comment: "目前分層的深度"
     t.integer "tree_position", default: 999, comment: "樹狀結構中的位置"
     t.integer "articles_count", default: 0, comment: "文章數"
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["data"], name: "index_article_categories_on_data", using: :gin
     t.index ["layout", "deep"], name: "index_article_categories_on_layout_and_deep"
     t.index ["layout", "enabled", "sort"], name: "index_article_categories_on_layout_and_enabled_and_sort"
@@ -128,8 +129,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.integer "sort", default: 999
     t.string "layout"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["article_category_id", "article_id"], name: "tyr_article_categoy_mapping_idx"
     t.index ["article_category_id"], name: "index_article_category_mappings_on_article_category_id"
     t.index ["article_id"], name: "index_article_category_mappings_on_article_id"
@@ -145,7 +146,7 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.text "body", comment: "內文"
     t.integer "cover_id", comment: "封面照片，attachment id"
     t.date "published_on", comment: "發佈日期"
-    t.datetime "published_at", comment: "發佈日期+時間"
+    t.datetime "published_at", precision: nil, comment: "發佈日期+時間"
     t.string "author_name", comment: "作者名稱"
     t.string "author_type"
     t.integer "author_id"
@@ -155,11 +156,11 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "meta_description", comment: "SEO 描述"
     t.string "meta_keywords", comment: "SEO 關鍵字"
     t.integer "total_pageviews", default: 0, comment: "總瀏覽數"
-    t.datetime "deleted_at"
-    t.datetime "modified_at"
+    t.datetime "deleted_at", precision: nil
+    t.datetime "modified_at", precision: nil
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["author_name"], name: "index_articles_on_author_name", opclass: :gin_trgm_ops, using: :gin
     t.index ["body"], name: "index_articles_on_body", opclass: :gin_trgm_ops, using: :gin
     t.index ["data"], name: "index_articles_on_data", using: :gin
@@ -192,8 +193,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.integer "image_height"
     t.jsonb "image_exif", default: {}
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["creator_type", "creator_id"], name: "index_attachments_on_creator_type_and_creator_id"
     t.index ["data"], name: "index_attachments_on_data", using: :gin
     t.index ["description"], name: "index_attachments_on_description", opclass: :gin_trgm_ops, using: :gin
@@ -211,8 +212,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.integer "auth_id"
     t.jsonb "auth_data", default: {}
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["auth_data"], name: "index_authorizations_on_auth_data", using: :gin
     t.index ["auth_type", "auth_id", "provider"], name: "index_authorizations_on_auth_type_and_auth_id_and_provider"
     t.index ["auth_type", "auth_id"], name: "index_authorizations_on_auth_type_and_auth_id"
@@ -228,8 +229,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.integer "sort"
     t.integer "context_id"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["catalog_id"], name: "index_catalog_items_on_catalog_id"
     t.index ["context_id", "catalog_id"], name: "index_catalog_items_on_context_id_and_catalog_id"
     t.index ["context_id", "item_id", "item_type", "catalog_id"], name: "index_catalog_items_on_context_id_and_item_and_and_catalog_id"
@@ -254,8 +255,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.integer "context_id"
     t.integer "creator_id"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["data"], name: "index_catalogs_on_data", using: :gin
     t.index ["layout", "context_id"], name: "index_catalogs_on_layout_and_context_id"
     t.index ["layout", "creator_id"], name: "index_catalogs_on_layout_and_creator_id"
@@ -275,8 +276,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "identity"
     t.date "created_on"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["created_on"], name: "index_event_logs_on_created_on"
     t.index ["data"], name: "index_event_logs_on_data", using: :gin
     t.index ["event_type", "identity"], name: "index_event_logs_on_event_type_and_identity"
@@ -296,8 +297,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.date "created_on"
     t.jsonb "item_data", default: {}
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["context_id", "created_on"], name: "index_mylists_on_context_id_and_created_on"
     t.index ["context_id"], name: "index_mylists_on_context_id"
     t.index ["created_on"], name: "index_mylists_on_created_on"
@@ -329,8 +330,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "body"
     t.date "created_on"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["body"], name: "index_notifications_on_body", opclass: :gin_trgm_ops, using: :gin
     t.index ["created_on"], name: "index_notifications_on_created_on"
     t.index ["data"], name: "index_notifications_on_data", using: :gin
@@ -358,15 +359,15 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.integer "number_type"
     t.decimal "number"
     t.date "date"
-    t.datetime "datetime"
+    t.datetime "datetime", precision: nil
     t.integer "year"
     t.integer "month"
     t.integer "week_day"
     t.integer "hour"
     t.string "note"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["data"], name: "index_numeros_on_data", using: :gin
     t.index ["layout", "catalog_id"], name: "index_numeros_on_layout_and_catalog_id"
     t.index ["layout", "context_type", "context_id", "catalog_id"], name: "idx_numeros_on_lc_and_catalog"
@@ -404,48 +405,6 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.index ["subject_data"], name: "index_numeros_on_subject_data", using: :gin
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.string "layout"
-    t.string "sn"
-    t.string "user_type"
-    t.integer "user_id"
-    t.string "creator_type"
-    t.integer "creator_id"
-    t.string "currency"
-    t.decimal "total_amount"
-    t.integer "state"
-    t.integer "payment_state"
-    t.string "context_type"
-    t.integer "context_id"
-    t.text "for_text_search"
-    t.date "created_on"
-    t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["context_type", "context_id", "sn"], name: "index_orders_on_context_type_and_context_id_and_sn"
-    t.index ["created_on", "context_id", "context_type"], name: "index_orders_on_created_on_and_context_id_and_context_type"
-    t.index ["created_on", "layout"], name: "index_orders_on_created_on_and_layout"
-    t.index ["created_on"], name: "index_orders_on_created_on"
-    t.index ["creator_type", "creator_id", "context_id", "context_type"], name: "index_orders_on_creator_and_context"
-    t.index ["creator_type", "creator_id", "layout"], name: "index_orders_on_creator_type_and_creator_id_and_layout"
-    t.index ["creator_type", "creator_id"], name: "index_orders_on_creator_type_and_creator_id"
-    t.index ["data", "context_id", "context_type"], name: "index_orders_on_data_and_context_id_and_context_type", using: :gin
-    t.index ["data", "layout"], name: "index_orders_on_data_and_layout", using: :gin
-    t.index ["data"], name: "index_orders_on_data", using: :gin
-    t.index ["for_text_search"], name: "index_orders_on_for_text_search", opclass: :gin_trgm_ops, using: :gin
-    t.index ["layout", "sn"], name: "index_orders_on_layout_and_sn"
-    t.index ["payment_state", "context_id", "context_type"], name: "index_orders_on_payment_state_and_context_id_and_context_type"
-    t.index ["payment_state", "layout"], name: "index_orders_on_payment_state_and_layout"
-    t.index ["payment_state"], name: "index_orders_on_payment_state"
-    t.index ["sn"], name: "index_orders_on_sn"
-    t.index ["state", "context_id", "context_type"], name: "index_orders_on_state_and_context_id_and_context_type"
-    t.index ["state", "layout"], name: "index_orders_on_state_and_layout"
-    t.index ["state"], name: "index_orders_on_state"
-    t.index ["user_type", "user_id", "context_id", "context_type"], name: "index_orders_on_user_and_context"
-    t.index ["user_type", "user_id", "layout"], name: "index_orders_on_user_type_and_user_id_and_layout"
-    t.index ["user_type", "user_id"], name: "index_orders_on_user_type_and_user_id"
-  end
-
   create_table "page_blocks", force: :cascade do |t|
     t.string "name"
     t.text "body"
@@ -453,8 +412,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "template_engine"
     t.text "variables"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["data"], name: "index_page_blocks_on_data", using: :gin
     t.index ["enabled"], name: "index_page_blocks_on_enabled"
     t.index ["name"], name: "index_page_blocks_on_name"
@@ -481,8 +440,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "referer_domain", comment: "來源網域"
     t.jsonb "params", default: {}, comment: "參數"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["city"], name: "index_pageviews_on_city"
     t.index ["continent"], name: "index_pageviews_on_continent"
     t.index ["country", "zip"], name: "index_pageviews_on_country_and_zip"
@@ -511,8 +470,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "people_type"
     t.integer "people_id"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["data"], name: "index_role_peoples_on_data", using: :gin
     t.index ["people_type", "people_id"], name: "index_role_peoples_on_people_type_and_people_id"
     t.index ["role_id"], name: "index_role_peoples_on_role_id"
@@ -525,8 +484,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.boolean "enabled", default: false
     t.string "permissions", default: [], comment: "擁有的權限", array: true
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["data"], name: "index_roles_on_data", using: :gin
     t.index ["description"], name: "index_roles_on_description", opclass: :gin_trgm_ops, using: :gin
     t.index ["enabled"], name: "index_roles_on_enabled"
@@ -543,7 +502,7 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "tagger_type"
     t.bigint "tagger_id"
     t.string "context", limit: 128
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
     t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id"
@@ -562,20 +521,20 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["data"], name: "index_users_on_data", using: :gin
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -590,7 +549,7 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "whodunnit"
     t.text "object"
     t.text "object_changes"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
@@ -613,8 +572,8 @@ ActiveRecord::Schema.define(version: 2023_11_17_072407) do
     t.string "image", comment: "分享預覽圖"
     t.string "attachment", comment: "靜態檔案"
     t.jsonb "data", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["context_type", "context_id", "page_type"], name: "index_webpages_on_context_type_and_context_id_and_page_type"
     t.index ["context_type", "context_id", "path"], name: "index_webpages_on_context_type_and_context_id_and_path"
     t.index ["context_type", "context_id"], name: "index_webpages_on_context_type_and_context_id"

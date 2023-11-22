@@ -26,7 +26,7 @@ group :development do
   # slack
   gem 'slackistrano', require: false
 
-  gem 'brakeman', '~> 4'
+  gem 'brakeman', '~> 6.0', '>= 6.0.1'
   gem 'http_logger'
   gem 'listen'
   gem 'rubocop'

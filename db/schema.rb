@@ -45,16 +45,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: nil
-    t.datetime "remember_created_at", precision: nil
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at", precision: nil
-    t.datetime "last_sign_in_at", precision: nil
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "confirmation_token"
-    t.datetime "confirmed_at", precision: nil
-    t.datetime "confirmation_sent_at", precision: nil
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "mfa_token"
     t.string "mfa_secret"
@@ -71,7 +71,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.jsonb "data", default: {}
     t.integer "sort"
     t.boolean "enabled", default: false
-    t.datetime "datetime", precision: nil
+    t.datetime "datetime"
     t.date "date"
     t.integer "integer"
     t.decimal "float"
@@ -109,7 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.integer "deep", default: 0, comment: "目前分層的深度"
     t.integer "tree_position", default: 999, comment: "樹狀結構中的位置"
     t.integer "articles_count", default: 0, comment: "文章數"
-    t.datetime "deleted_at", precision: nil
+    t.datetime "deleted_at"
     t.jsonb "data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -146,7 +146,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.text "body", comment: "內文"
     t.integer "cover_id", comment: "封面照片，attachment id"
     t.date "published_on", comment: "發佈日期"
-    t.datetime "published_at", precision: nil, comment: "發佈日期+時間"
+    t.datetime "published_at", comment: "發佈日期+時間"
     t.string "author_name", comment: "作者名稱"
     t.string "author_type"
     t.integer "author_id"
@@ -156,8 +156,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.string "meta_description", comment: "SEO 描述"
     t.string "meta_keywords", comment: "SEO 關鍵字"
     t.integer "total_pageviews", default: 0, comment: "總瀏覽數"
-    t.datetime "deleted_at", precision: nil
-    t.datetime "modified_at", precision: nil
+    t.datetime "deleted_at"
+    t.datetime "modified_at"
     t.jsonb "data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -219,6 +219,46 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.index ["auth_type", "auth_id"], name: "index_authorizations_on_auth_type_and_auth_id"
     t.index ["data"], name: "index_authorizations_on_data", using: :gin
     t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid"
+  end
+
+  create_table "background_tasks", force: :cascade do |t|
+    t.string "context_type"
+    t.integer "context_id"
+    t.string "creator_type"
+    t.integer "creator_id"
+    t.integer "task_type", default: 0
+    t.string "file_encoding", default: "UTF-8"
+    t.string "download_url"
+    t.string "download_file_name"
+    t.integer "status", default: 0
+    t.boolean "has_error", default: false
+    t.string "perform_klass"
+    t.string "perform_method"
+    t.jsonb "perform_data", default: {}
+    t.string "job_identity"
+    t.datetime "processing_at"
+    t.datetime "finished_at"
+    t.jsonb "on_success", default: {}
+    t.jsonb "on_fail", default: {}
+    t.jsonb "result_data", default: {}
+    t.jsonb "error_data", default: {}
+    t.jsonb "data", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["context_type", "context_id", "status", "job_identity"], name: "index_bt_on_context_and_status_and_job_identity"
+    t.index ["context_type", "context_id", "status"], name: "index_bt_on_context_and_status"
+    t.index ["context_type", "context_id"], name: "index_background_tasks_on_context_type_and_context_id"
+    t.index ["creator_type", "creator_id"], name: "index_background_tasks_on_creator_type_and_creator_id"
+    t.index ["data"], name: "index_background_tasks_on_data", using: :gin
+    t.index ["error_data"], name: "index_background_tasks_on_error_data", using: :gin
+    t.index ["has_error"], name: "index_background_tasks_on_has_error"
+    t.index ["on_fail"], name: "index_background_tasks_on_on_fail", using: :gin
+    t.index ["on_success"], name: "index_background_tasks_on_on_success", using: :gin
+    t.index ["perform_data"], name: "index_background_tasks_on_perform_data", using: :gin
+    t.index ["result_data"], name: "index_background_tasks_on_result_data", using: :gin
+    t.index ["status", "job_identity"], name: "index_background_tasks_on_status_and_job_identity"
+    t.index ["status"], name: "index_background_tasks_on_status"
+    t.index ["task_type"], name: "index_background_tasks_on_task_type"
   end
 
   create_table "catalog_items", force: :cascade do |t|
@@ -337,7 +377,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.index ["data"], name: "index_notifications_on_data", using: :gin
     t.index ["item_type", "item_id"], name: "index_notifications_on_item_type_and_item_id"
     t.index ["notify_type"], name: "index_notifications_on_notify_type"
-    t.index ["readed", "receiver_type", "receiver_id"], name: "index_notifications_on_readed_and_receiver_type_and_receiver_id"
+    t.index ["readed", "receiver_type", "receiver_id"], name: "idx_on_readed_receiver_type_receiver_id_1d93789c5c"
     t.index ["receiver_type", "receiver_id"], name: "index_notifications_on_receiver_type_and_receiver_id"
     t.index ["sender_type", "sender_id"], name: "index_notifications_on_sender_type_and_sender_id"
     t.index ["subject"], name: "index_notifications_on_subject", opclass: :gin_trgm_ops, using: :gin
@@ -359,7 +399,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.integer "number_type"
     t.decimal "number"
     t.date "date"
-    t.datetime "datetime", precision: nil
+    t.datetime "datetime"
     t.integer "year"
     t.integer "month"
     t.integer "week_day"
@@ -502,11 +542,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.string "tagger_type"
     t.bigint "tagger_id"
     t.string "context", limit: 128
-    t.datetime "created_at", precision: nil
+    t.datetime "created_at"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
-    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id"
-    t.index ["tagger_type", "tagger_id"], name: "index_taggings_on_tagger_type_and_tagger_id"
+    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable"
+    t.index ["tagger_type", "tagger_id"], name: "index_taggings_on_tagger"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -521,16 +561,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: nil
-    t.datetime "remember_created_at", precision: nil
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at", precision: nil
-    t.datetime "last_sign_in_at", precision: nil
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "confirmation_token"
-    t.datetime "confirmed_at", precision: nil
-    t.datetime "confirmation_sent_at", precision: nil
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.jsonb "data", default: {}
     t.datetime "created_at", null: false
@@ -549,7 +589,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_072407) do
     t.string "whodunnit"
     t.text "object"
     t.text "object_changes"
-    t.datetime "created_at", precision: nil
+    t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 

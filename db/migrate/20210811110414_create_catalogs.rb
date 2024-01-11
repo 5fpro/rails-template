@@ -1,4 +1,4 @@
-class CreateCatalogs < ActiveRecord::Migration[6.0]
+class CreateCatalogs < ActiveRecord::Migration[7.1]
   def up
     create_table :catalogs do |t|
       t.string :layout

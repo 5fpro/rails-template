@@ -1,4 +1,4 @@
-class CreateAmoebas < ActiveRecord::Migration[6.0]
+class CreateAmoebas < ActiveRecord::Migration[7.1]
   def up
     create_table :amoebas do |t|
       t.string :layout
@@ -14,8 +14,8 @@ class CreateAmoebas < ActiveRecord::Migration[6.0]
       t.boolean :boolean, default: false
       t.string :people_type
       t.integer :people_id
-      t.string :object_type
-      t.integer :object_id
+      t.string :item_type
+      t.integer :item_id
       t.string :context_type
       t.integer :context_id
       t.text :configuration
@@ -29,7 +29,7 @@ class CreateAmoebas < ActiveRecord::Migration[6.0]
     add_index :amoebas, :boolean
     add_index :amoebas, :layout
     add_index :amoebas, [:people_type, :people_id]
-    add_index :amoebas, [:object_type, :object_id]
+    add_index :amoebas, [:item_type, :item_id]
     add_index :amoebas, [:context_type, :context_id]
     add_index :amoebas, [:sort, :enabled]
     add_index :amoebas, :sort

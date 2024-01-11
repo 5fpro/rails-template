@@ -1,4 +1,4 @@
-class CreateAuthorizations < ActiveRecord::Migration[6.0]
+class CreateAuthorizations < ActiveRecord::Migration[7.1]
   def change
     create_table :authorizations do |t|
       t.integer :provider

@@ -36,7 +36,7 @@ before_fork do |server, worker|
   end
 
   old_pid = "#{server.config[:pid]}.oldbin"
-  if File.exists?(old_pid) && server.pid != old_pid
+  if File.exist?(old_pid) && server.pid != old_pid
     begin
       sig = (worker.nr + 1) >= server.worker_processes ? :QUIT : :TTOU
       Process.kill(sig, File.read(old_pid).to_i)
@@ -50,5 +50,5 @@ after_fork do |server, worker|
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.establish_connection
   end
-  Redis.current.client.reconnect
+  ::Tyr::Redis.reconnect
 end

@@ -1,4 +1,4 @@
-class EnabledPostgis < ActiveRecord::Migration[6.0]
+class EnabledPostgis < ActiveRecord::Migration[7.1]
   def change
     execute '
       DROP EXTENSION IF EXISTS postgis CASCADE;

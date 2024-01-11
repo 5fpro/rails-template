@@ -1,4 +1,4 @@
-class CreateArticles < ActiveRecord::Migration[6.0]
+class CreateArticles < ActiveRecord::Migration[7.1]
   def change
     create_table :articles do |t|
       t.string :layout, comment: '版位'

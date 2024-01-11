@@ -1,4 +1,4 @@
-class CreatePageviews < ActiveRecord::Migration[6.0]
+class CreatePageviews < ActiveRecord::Migration[7.1]
   def change
     create_table :pageviews do |t|
       t.string :scope, comment: '範圍'

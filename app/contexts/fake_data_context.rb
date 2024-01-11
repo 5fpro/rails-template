@@ -22,14 +22,14 @@ class FakeDataContext < BaseContext
   def user_params(opts)
     {
       name: 'Haha',
-      password: password
+      password:
     }.merge(opts)
   end
 
   def create_admins!
     email = 'admin@5fpro.com'
-    @administrator = Administrator.find_by(email: email) || FactoryBot.create(:administrator, email: email, password: password)
-    @administrator.update(password: password, root: true)
+    @administrator = Administrator.find_by(email:) || FactoryBot.create(:administrator, email:, password:)
+    @administrator.update(password:, root: true)
   end
 
 end

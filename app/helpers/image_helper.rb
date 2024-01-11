@@ -25,7 +25,7 @@ module ImageHelper
       src: "https://#{cdn_host}#{dirname}/#{basename}-#{widths[0]}#{extname}",
       srcset: cdn_image_srcset("#{dirname}/#{basename}", widths, extname),
       webp_srcset: cdn_image_srcset(basename, widths, '.webp'),
-      options: options
+      options:
     }
   end
 

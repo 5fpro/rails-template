@@ -15,7 +15,6 @@ defaults: &defaults
       keepalive: true
       username:
       password:
-      pool_size: 1
   omniauth:
     providers:
       facebook:

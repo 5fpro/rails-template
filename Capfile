@@ -32,8 +32,6 @@ require 'capistrano/scm/git-with-submodules'
 install_plugin Capistrano::SCM::Git::WithSubmodules
 
 require 'capistrano3/unicorn'
-# require 'capistrano/sidekiq/monit' #to require monit tasks (V0.2.0+)
-require 'capistrano/sidekiq'
 require 'rollbar/capistrano3'
 require 'capistrano/sitemap_generator'
 

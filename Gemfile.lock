@@ -204,7 +204,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
     bcrypt (3.1.19)
-    brakeman (4.10.1)
+    brakeman (5.0.0)
     breadcrumbs_on_rails (4.1.0)
       railties (>= 5.0)
     builder (3.2.4)
@@ -729,7 +729,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgis-adapter
   annotate
-  brakeman (~> 4)
+  brakeman (~> 5)
   byebug
   capistrano
   capistrano-bundler

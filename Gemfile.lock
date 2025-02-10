@@ -267,7 +267,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.3.4)
+    date (3.4.1)
     devise (4.9.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -429,7 +429,7 @@ GEM
     nested_form (0.3.2)
     net-http (0.4.0)
       uri
-    net-imap (0.4.5)
+    net-imap (0.4.19)
       date
       net-protocol
     net-pop (0.1.2)
@@ -687,7 +687,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.3.0)
     timecop (0.9.8)
-    timeout (0.4.1)
+    timeout (0.4.3)
     turnip (4.4.0)
       cuke_modeler (~> 3.15)
       rspec (>= 3.0, < 4.0)
